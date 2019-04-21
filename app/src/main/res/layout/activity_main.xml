@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.DataCollection.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/ImportDataButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/import_data_btn" />
+
+        <Button
+            android:id="@+id/AddReadingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ImportDataButton"
+            android:layout_alignParentEnd="true"
+            android:text="@string/add_readings_btn" />
+
+        <Button
+            android:id="@+id/exportRecordBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/export_record_btn" />
+
+        <Button
+            android:id="@+id/add_study_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddReadingsButton"
+            android:text="@string/add_study_btn" />
+
+        <TextView
+            android:id="@+id/ChooseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_study_btn"
+            android:text="Choose a study to get started" />
+
+        <ListView
+            android:id="@+id/StudyListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ChooseText"
+            android:layout_above="@id/exportRecordBtn"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
