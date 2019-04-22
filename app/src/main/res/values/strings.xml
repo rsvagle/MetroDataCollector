@@ -41,4 +41,9 @@
     <string name="FILE_NAME_REQUEST">Please provide a file name!</string>
     <string name="FILE_NOT_FOUND">The file could not be found!</string>
     <string name="choose_study_text">Choose a study to view it\'s data</string>
+    <string name="title_activity_site_list">SiteListActivity</string>
+    <string name="title_activity_view_site">ViewSiteActivity</string>
+    <string name="export_study_btn">Export Study</string>
+    <string name="add_site_btn">Add Site</string>
+    <string name="choose_site_text">Choose a site to view it\'s data</string>
 </resources>

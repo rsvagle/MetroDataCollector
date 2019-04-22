@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Button studyImportButton = findViewById(R.id.ImportDataButton);
-        Button studyAddReadingsButton = findViewById(R.id.AddReadingsButton);
+        Button studyAddReadingsButton = findViewById(R.id.add_readings_btn);
         Button recordExportButton = findViewById(R.id.exportRecordBtn);
         ListView studyListView = findViewById(R.id.StudyListView);
-        StudyListAdapter adapter = new StudyListAdapter(this, R.layout.adapter_view_layout, record.getStudies());
+        StudyListAdapter adapter = new StudyListAdapter(this, R.layout.adapter_study_list, record.getStudies());
         studyListView.setAdapter(adapter);
 
         Study newStudy = new Study("101", "Ryan's Study");

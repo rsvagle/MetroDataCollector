@@ -7,49 +7,41 @@
     tools:context="com.example.DataCollection.MainActivity">
 
     <Button
-        android:id="@+id/ImportDataButton"
+        android:id="@+id/add_readings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:text="@string/import_data_btn" />
-
-    <Button
-        android:id="@+id/add_readings_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ImportDataButton"
-        android:layout_alignParentEnd="true"
         android:text="@string/add_readings_btn" />
 
     <Button
-        android:id="@+id/exportRecordBtn"
+        android:id="@+id/export_study_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/export_record_btn" />
+        android:text="@string/export_study_btn" />
 
     <Button
-        android:id="@+id/add_study_btn"
+        android:id="@+id/add_site_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_readings_btn"
-        android:text="@string/add_study_btn" />
+        android:text="@string/add_site_btn" />
 
     <TextView
-        android:id="@+id/choose_study_text"
+        android:id="@+id/choose_site_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_study_btn"
-        android:text="@string/choose_study_text" />
+        android:layout_below="@id/add_site_btn"
+        android:text="@string/choose_site_text" />
 
     <ListView
-        android:id="@+id/StudyListView"
+        android:id="@+id/site_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/choose_study_text"
-        android:layout_above="@id/exportRecordBtn"
+        android:layout_below="@id/choose_site_text"
+        android:layout_above="@id/export_study_btn"
         />
 
 </RelativeLayout>
