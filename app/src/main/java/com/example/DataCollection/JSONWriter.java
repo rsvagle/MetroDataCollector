@@ -1,11 +1,13 @@
 package com.example.DataCollection;
 
+import android.os.Environment;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.util.Iterator;
 
 public class JSONWriter {
@@ -18,10 +20,8 @@ public class JSONWriter {
     public void writeToFile(Record studyRecord, String outputFileName) throws Exception{
 
         //path and construct of the output file
-        outputFile = new File(outputFileName);
-
-        //Instantiate a PrintWriter object
-        FileWriter writer = new FileWriter(outputFile);
+        outputFile = new File(Environment.getExternalStorageDirectory() + outputFileName);
+        FileOutputStream fos = new FileOutputStream(outputFile);
 
         //Write JSON object in pretty format
         Gson myGson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
@@ -33,7 +33,7 @@ public class JSONWriter {
         }
 
         String jsonString = myGson.toJson(jObject);
-        writer.write(jsonString);
-        writer.close();
+        fos.write(jsonString.getBytes());
+        fos.close();
     }
 }

@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.DataCollection.R;
-
 import java.util.List;
 
 public class StudyListAdapter extends ArrayAdapter<Study> {
@@ -34,9 +32,9 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
         LayoutInflater inflater = LayoutInflater.from(myContext);
         convertView = inflater.inflate(myResource, parent, false);
 
-        TextView tvStudyID = (TextView) convertView.findViewById(R.id.studyID);
-        TextView tvStudyName = (TextView) convertView.findViewById(R.id.studyName);
-        Button btnViewStudy = (Button) convertView.findViewById(R.id.viewStudyBtn);
+        TextView tvStudyID = (TextView) convertView.findViewById(R.id.list_study_id);
+        TextView tvStudyName = (TextView) convertView.findViewById(R.id.list_study_name);
+        Button btnViewStudy = (Button) convertView.findViewById(R.id.view_study_btn);
 
         tvStudyID.setText(studyID);
         tvStudyName.setText(studyName);

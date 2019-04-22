@@ -7,21 +7,21 @@
     >
 
     <TextView
-        android:id="@+id/studyID"
+        android:id="@+id/list_study_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="10"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/studyName"
+        android:id="@+id/list_study_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="60"
         android:text="TextView" />
 
     <Button
-        android:id="@+id/viewStudyBtn"
+        android:id="@+id/view_study_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="30"

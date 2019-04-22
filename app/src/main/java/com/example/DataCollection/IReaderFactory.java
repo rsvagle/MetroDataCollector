@@ -3,17 +3,16 @@ package com.example.DataCollection;
 import java.io.File;
 
 public class IReaderFactory {
-	private File inputFile;
 	private String fileType = "";
+	private String myfileName = "";
 	IReader myReader;
 	
-	public IReaderFactory(File file) {
-		inputFile = file;
-		fileType = getFileExtension(file);
+	public IReaderFactory(String fileName) {
+		fileType = getFileExtension(fileName);
+		myfileName = fileName;
 	}
 	
-	public String getFileExtension(File file) {
-	    String fileName = file.getName();
+	public String getFileExtension(String fileName) {
 	    int dotIndex = fileName.lastIndexOf('.');
 	    return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
 	}
@@ -21,11 +20,11 @@ public class IReaderFactory {
 	public Readings getReadings() throws Exception {
 		if(fileType.equals("json")) {
 			myReader = new JSONReader();
-			return myReader.getReadings(inputFile);
+			return myReader.getReadings(myfileName);
 		}
 		else if(fileType.equals("xml")) {
 			myReader = new XMLReader();
-			return myReader.getReadings(inputFile);
+			return myReader.getReadings(myfileName);
 		}
 		else {
 			return null;
@@ -35,11 +34,11 @@ public class IReaderFactory {
 	public Study getStudy() throws Exception{
 		if(fileType.equals("json")) {
 			myReader = new JSONReader();
-			return myReader.getStudy(inputFile);
+			return myReader.getStudy(myfileName);
 		}
 		else if(fileType.equals("xml")){
 			myReader = new XMLReader();
-			return myReader.getStudy(inputFile);
+			return myReader.getStudy(myfileName);
 		}
 		else {
 			return null;

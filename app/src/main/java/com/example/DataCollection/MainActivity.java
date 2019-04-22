@@ -3,27 +3,24 @@ package com.example.DataCollection;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.io.File;
-
 public class MainActivity extends AppCompatActivity {
 
-    private File importedFile;
     private JSONReader jsonReader = new JSONReader();
-    private static Record record = null;
+    private static Record record;
     public static final String TAG = "MainActivity";
-    private static final String STATE_FILE = "STATE_FILE.json";
+    private static final String STATE_FILEPATH = "STATE_FILE.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Started.");
+        record = Record.getInstance();
         try {
-            record = jsonReader.loadState(STATE_FILE);
+            record = jsonReader.loadState(STATE_FILEPATH, record);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,26 +31,35 @@ public class MainActivity extends AppCompatActivity {
         StudyListAdapter adapter = new StudyListAdapter(this, R.layout.adapter_view_layout, record.getStudies());
         studyListView.setAdapter(adapter);
 
-        studyImportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Study newStudy = new Study("101", "Ryan's Study");
+        record.addStudy(newStudy);
 
-            //    importedFile = chooseFile();
-            }
-        });
-
-        studyAddReadingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        recordExportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        JSONWriter jsonWriter = new JSONWriter();
+        try {
+            jsonWriter.writeToFile(record, STATE_FILEPATH);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        studyImportButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            //    importedFile = chooseFile();
+//            }
+//        });
+//
+//        studyAddReadingsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        recordExportButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 }

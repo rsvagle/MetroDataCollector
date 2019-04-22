@@ -1,9 +1,13 @@
 package com.example.DataCollection;
 
+import android.os.Environment;
+
 import org.xml.sax.SAXException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -25,11 +29,13 @@ public class XMLReader implements IReader{
 		saxParserFactory = SAXParserFactory.newInstance();
 	}
 	
-	public void readXML(File file) {
+	public void readXML(String fileName) {
 		try {
+			File stateFile = new File(Environment.getExternalStorageDirectory() + fileName);
+			FileInputStream fis = new FileInputStream(stateFile);
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 			XMLSAXParserHandler handler = new XMLSAXParserHandler();
-			saxParser.parse(file, handler);
+			saxParser.parse(fis, handler);
 			//Get Item List
 			myStudy = handler.getStudy();
 			readings.setReadings(handler.getItemList());
@@ -47,8 +53,8 @@ public class XMLReader implements IReader{
 	/**
 	 * Read the XML file
 	 */
-	public Readings getReadings(File file)  throws Exception{
-		this.readXML(file);
+	public Readings getReadings(String fileName)  throws Exception{
+		this.readXML(fileName);
 		return readings;
 	}
 	
@@ -56,8 +62,8 @@ public class XMLReader implements IReader{
 	 * This method returns the study imported from the input file
 	 * @return
 	 */
-	public Study getStudy(File file)  throws Exception{
-		this.readXML(file);
+	public Study getStudy(String fileName)  throws Exception{
+		this.readXML(fileName);
 		myStudy.setSiteForReading(readings);
 		myStudy.addReadings(readings);
 		return myStudy;

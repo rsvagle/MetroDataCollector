@@ -1,14 +1,18 @@
 package com.example.DataCollection;
 
+import android.os.Environment;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 
 /**
@@ -19,7 +23,6 @@ import java.util.Iterator;
  */
 public class JSONReader implements IReader{
 
-	private static FileReader reader = null;
 	private static Study myStudy;
 	private static Readings myReadings = new Readings();
 	
@@ -27,18 +30,13 @@ public class JSONReader implements IReader{
 		
 	}
 
-//	private File chooseFile() throws IOException {
-//		//Specify the current directory for the file chooser()
-//		File currentDir = new File(System.getProperty("user.dir")+"/src");
-//		chooser = new JFileChooser(currentDir);
-//		return chooser.getSelectedFile();
-//	}
-	
-	public void readFile(File inputFile) throws IOException {
-		reader = new FileReader(inputFile);
+	public void readFile(String fileName) throws IOException {
+		File myFile = new File(Environment.getExternalStorageDirectory() + fileName);
+		FileInputStream fis = new FileInputStream(myFile);
+		InputStreamReader isr = new InputStreamReader(fis);
 		Gson myGson = new Gson();
-		myReadings = myGson.fromJson(reader, Readings.class);
-		reader.close();
+		myReadings = myGson.fromJson(isr, Readings.class);
+		isr.close();
 		
 		// Validate each item
 		for(Item i : myReadings.getReadings()) {
@@ -53,13 +51,13 @@ public class JSONReader implements IReader{
 	 * @return
 	 * A readings object containing the items in the file
 	 */	
-	public Readings getReadings(File inputFile) throws Exception{
-		this.readFile(inputFile);
+	public Readings getReadings(String fileName) throws Exception{
+		this.readFile(fileName);
 		return myReadings;
 	}
 	
-	public Study getStudy(File inputFile) throws Exception{
-		this.readFile(inputFile);
+	public Study getStudy(String fileName) throws Exception{
+		this.readFile(fileName);
 		myStudy = new Study("UnknownStudy","UnknownStudy");
 		myStudy.setSiteForReading(myReadings);
 		myStudy.addReadings(myReadings);
@@ -70,26 +68,23 @@ public class JSONReader implements IReader{
 	 * @param fileName
 	 * Returns a record that encapsulates the previous state.
 	 */
-	public Record loadState(String fileName) throws Exception {
+	public Record loadState(String fileName, Record myRecord) throws Exception {
 		
-		final File FILE = new File(fileName);
-		
-		//Instantiates a BufferReader object that takes the input file as an argument 
-		reader = new FileReader(FILE);
-		Record myRecord = Record.getInstance();
-		@SuppressWarnings("resource")
-		BufferedReader br = new BufferedReader(new FileReader(FILE));
+		File stateFile = new File(Environment.getExternalStorageDirectory() + fileName);
+		FileInputStream fis = new FileInputStream(stateFile);
+		InputStreamReader isr = new InputStreamReader(fis);
+		BufferedReader br = new BufferedReader(isr);
 		
 		//check if state file is empty
 		if (br.readLine() != null) {
 			Study[] importedStudies;
 			Gson myGson = new GsonBuilder().setLenient().create();
-			importedStudies = myGson.fromJson(reader, Study[].class);
+			importedStudies = myGson.fromJson(isr, Study[].class);
 			for(Study s : importedStudies) {
 				myRecord.importStudy(s);
 			}
 		}
-		reader.close();
+		fis.close();
 		return myRecord;
 	}
 }

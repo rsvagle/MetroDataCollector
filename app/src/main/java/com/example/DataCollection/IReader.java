@@ -4,8 +4,8 @@ import java.io.File;
 
 public interface IReader {
 	
-	public Readings getReadings(File inputFile)  throws Exception;
+	Readings getReadings(String fileName)  throws Exception;
 	
-	public Study getStudy(File inputFile) throws Exception;
+	Study getStudy(String fileName) throws Exception;
 
 }
