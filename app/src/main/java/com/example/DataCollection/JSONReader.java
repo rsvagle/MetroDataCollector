@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 
@@ -30,8 +31,8 @@ public class JSONReader implements IReader{
 		
 	}
 
-	public void readFile(String fileName) throws IOException {
-		File myFile = new File(Environment.getExternalStorageDirectory() + fileName);
+	public void readFile(File fileName) throws IOException {
+		File myFile = fileName;
 		FileInputStream fis = new FileInputStream(myFile);
 		InputStreamReader isr = new InputStreamReader(fis);
 		Gson myGson = new Gson();
@@ -51,12 +52,12 @@ public class JSONReader implements IReader{
 	 * @return
 	 * A readings object containing the items in the file
 	 */	
-	public Readings getReadings(String fileName) throws Exception{
+	public Readings getReadings(File fileName) throws Exception{
 		this.readFile(fileName);
 		return myReadings;
 	}
 	
-	public Study getStudy(String fileName) throws Exception{
+	public Study getStudy(File fileName) throws Exception{
 		this.readFile(fileName);
 		myStudy = new Study("UnknownStudy","UnknownStudy");
 		myStudy.setSiteForReading(myReadings);
@@ -65,26 +66,23 @@ public class JSONReader implements IReader{
 	}
 	
 	/**
-	 * @param fileName
+	 * @param is
 	 * Returns a record that encapsulates the previous state.
 	 */
-	public Record loadState(String fileName, Record myRecord) throws Exception {
-		
-		File stateFile = new File(Environment.getExternalStorageDirectory() + fileName);
-		FileInputStream fis = new FileInputStream(stateFile);
-		InputStreamReader isr = new InputStreamReader(fis);
-		BufferedReader br = new BufferedReader(isr);
-		
-		//check if state file is empty
-		if (br.readLine() != null) {
-			Study[] importedStudies;
-			Gson myGson = new GsonBuilder().setLenient().create();
-			importedStudies = myGson.fromJson(isr, Study[].class);
-			for(Study s : importedStudies) {
-				myRecord.importStudy(s);
-			}
+	public Record loadState(InputStream is) throws Exception {
+
+		Record myRecord = Record.getInstance();
+		int size = is.available();
+		byte[] buffer = new byte[size];
+		is.read(buffer);
+		is.close();
+		String jsonString = new String(buffer, "UTF-8");
+		Study[] importedStudies;
+		Gson myGson = new GsonBuilder().setLenient().create();
+		importedStudies = myGson.fromJson(jsonString, Study[].class);
+		for(Study s : importedStudies) {
+			myRecord.importStudy(s);
 		}
-		fis.close();
 		return myRecord;
 	}
 }

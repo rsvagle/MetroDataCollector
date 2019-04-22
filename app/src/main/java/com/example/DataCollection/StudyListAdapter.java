@@ -28,7 +28,7 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
     public View getView(int position, View convertView, ViewGroup parent) {
         String studyID = getItem(position).getStudyID();
         String studyName = getItem(position).getStudyName();
-        Study currentStudy = getItem(position);
+        final Study currentStudy = getItem(position);
 
         LayoutInflater inflater = LayoutInflater.from(myContext);
         convertView = inflater.inflate(myResource, parent, false);
@@ -42,7 +42,8 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
         btnViewStudyActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent viewStudyIntent = new Intent(getContext(), ViewStudyActivity.class);
+                Intent viewStudyIntent = new Intent(myContext, ViewStudyActivity.class);
+                viewStudyIntent.putExtra("study", currentStudy);
                 myContext.startActivity(viewStudyIntent);
             }
         });

@@ -3,6 +3,7 @@ package com.example.DataCollection;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  *
  */
 
-public class Item {	
+public class Item implements Serializable {
 	@SerializedName("site_id")
 	@Expose
 	private String siteID;

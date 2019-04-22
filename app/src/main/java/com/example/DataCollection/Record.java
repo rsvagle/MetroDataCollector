@@ -3,6 +3,7 @@ package com.example.DataCollection;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,7 +15,7 @@ import java.util.List;
  * It stores a study object along with the sites and 
  * the readings associated with the study.
  */
-public class Record {
+public class Record implements Serializable {
 	private static final Object LOCK = new Object();
 	private static Record  recordSelf = null;
 	private static Study unknownStudy = new Study("UnknownStudy", "UnknownStudy");

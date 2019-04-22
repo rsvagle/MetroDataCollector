@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity {
 
     private JSONReader jsonReader = new JSONReader();
@@ -18,10 +20,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Started.");
-        record = Record.getInstance();
         try {
-            record = jsonReader.loadState(STATE_FILEPATH, record);
+            InputStream is = getAssets().open(STATE_FILEPATH);
+            record = jsonReader.loadState(is);
         } catch (Exception e) {
+            record = Record.getInstance();
             e.printStackTrace();
         }
         Button studyImportButton = findViewById(R.id.ImportDataButton);
@@ -34,12 +37,6 @@ public class MainActivity extends AppCompatActivity {
         Study newStudy = new Study("101", "Ryan's Study");
         record.addStudy(newStudy);
 
-        JSONWriter jsonWriter = new JSONWriter();
-        try {
-            jsonWriter.writeToFile(record, STATE_FILEPATH);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 //        studyImportButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

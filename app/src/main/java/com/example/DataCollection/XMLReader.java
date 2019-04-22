@@ -29,9 +29,9 @@ public class XMLReader implements IReader{
 		saxParserFactory = SAXParserFactory.newInstance();
 	}
 	
-	public void readXML(String fileName) {
+	public void readXML(File fileName) {
 		try {
-			File stateFile = new File(Environment.getExternalStorageDirectory() + fileName);
+			File stateFile = fileName;
 			FileInputStream fis = new FileInputStream(stateFile);
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 			XMLSAXParserHandler handler = new XMLSAXParserHandler();
@@ -53,7 +53,7 @@ public class XMLReader implements IReader{
 	/**
 	 * Read the XML file
 	 */
-	public Readings getReadings(String fileName)  throws Exception{
+	public Readings getReadings(File fileName)  throws Exception{
 		this.readXML(fileName);
 		return readings;
 	}
@@ -62,7 +62,7 @@ public class XMLReader implements IReader{
 	 * This method returns the study imported from the input file
 	 * @return
 	 */
-	public Study getStudy(String fileName)  throws Exception{
+	public Study getStudy(File fileName)  throws Exception{
 		this.readXML(fileName);
 		myStudy.setSiteForReading(readings);
 		myStudy.addReadings(readings);

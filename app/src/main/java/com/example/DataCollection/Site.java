@@ -3,11 +3,12 @@ package com.example.DataCollection;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Site {
+public class Site  implements Serializable {
 	private Study study;
 	
 	@SerializedName("recording")

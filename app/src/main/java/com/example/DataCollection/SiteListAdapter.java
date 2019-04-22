@@ -27,7 +27,7 @@ public class SiteListAdapter extends ArrayAdapter<Site> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         String siteID = getItem(position).getSiteID();
-        Site currentSite = getItem(position);
+        final Site currentSite = getItem(position);
 
         LayoutInflater inflater = LayoutInflater.from(myContext);
         convertView = inflater.inflate(myResource, parent, false);
@@ -42,6 +42,7 @@ public class SiteListAdapter extends ArrayAdapter<Site> {
             @Override
             public void onClick(View v) {
                 Intent viewSiteIntent = new Intent(getContext(), ViewSiteActivity.class);
+                viewSiteIntent.putExtra("site", currentSite);
                 myContext.startActivity(viewSiteIntent);
             }
         });
