@@ -8,21 +8,21 @@
 
     <TextView
         android:id="@+id/list_site_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="20"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/list_site_status"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="60"
+        android:layout_weight="50"
         android:text="TextView" />
 
     <Button
         android:id="@+id/view_site_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="30"
         android:text="View Site" />

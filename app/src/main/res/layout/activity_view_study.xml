@@ -26,7 +26,8 @@
         android:id="@+id/add_site_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_readings_btn"
+        android:layout_below="@+id/study_id_tv"
+        android:layout_marginTop="10dp"
         android:text="@string/add_site_btn" />
 
     <TextView
@@ -43,5 +44,21 @@
         android:layout_below="@id/choose_site_text"
         android:layout_above="@id/export_study_btn"
         />
+
+    <TextView
+        android:id="@+id/study_name_textView"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="TextView"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/study_id_tv"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/study_name_textView"
+        android:text="TextView"
+        android:textSize="14sp" />
 
 </RelativeLayout>
