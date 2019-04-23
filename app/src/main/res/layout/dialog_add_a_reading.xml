@@ -3,19 +3,28 @@
     android:layout_width="210dp"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/backgroundColor">
 
     <TextView
         android:id="@+id/dialog_add_a_reading_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_a_reading_title"
+        android:textColor="@color/whiteText"
+        android:background="@drawable/header_appearance"
+        android:textAlignment="center"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/dialog_ask_a_reading_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/whiteText"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:text="@string/dialog_ask_a_reading_id" />
 
     <EditText
@@ -23,24 +32,48 @@
         android:id="@+id/dialog_get_a_reading_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="10sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
+        android:background="@drawable/edit_round"
         />
 
     <TextView
         android:id="@+id/dialog_ask_a_reading_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/whiteText"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:text="@string/dialog_ask_a_reading_typ" />
 
     <EditText
         android:inputType="text"
         android:id="@+id/dialog_get_a_reading_type"
         android:layout_width="match_parent"
+        android:background="@drawable/edit_round"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
         />
     <TextView
         android:id="@+id/dialog_ask_a_reading_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/whiteText"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:text="@string/dialog_ask_a_reading_unit" />
 
     <EditText
@@ -48,11 +81,23 @@
         android:id="@+id/dialog_get_a_reading_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_round"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
         />
     <TextView
         android:id="@+id/dialog_ask_a_reading_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/whiteText"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:text="@string/dialog_ask_a_reading_value" />
 
     <EditText
@@ -60,6 +105,13 @@
         android:id="@+id/dialog_get_a_reading_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_round"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
         />
 
     <LinearLayout
@@ -72,13 +124,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Confirm" />
+            android:text="Confirm"
+            android:background="@drawable/button_round"
+            android:textColor="@color/whiteText"
+            android:layout_marginTop="15sp"
+            android:layout_marginStart="8sp"
+            android:layout_marginEnd="8sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"
+            android:layout_marginBottom="8sp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/dialog_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/button_round"
+            android:textColor="@color/whiteText"
+            android:textAllCaps="false"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="8sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"
+            android:layout_marginBottom="8sp"
             android:text="Cancel" />
     </LinearLayout>
 </LinearLayout>
