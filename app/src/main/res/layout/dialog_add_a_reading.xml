@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="210dp"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_add_a_reading_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_a_reading_title"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/dialog_ask_a_reading_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_ask_a_reading_id" />
+
+    <EditText
+        android:inputType="text"
+        android:id="@+id/dialog_get_a_reading_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/dialog_ask_a_reading_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_ask_a_reading_typ" />
+
+    <EditText
+        android:inputType="text"
+        android:id="@+id/dialog_get_a_reading_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/dialog_ask_a_reading_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_ask_a_reading_unit" />
+
+    <EditText
+        android:inputType="text"
+        android:id="@+id/dialog_get_a_reading_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/dialog_ask_a_reading_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_ask_a_reading_value" />
+
+    <EditText
+        android:inputType="numberDecimal"
+        android:id="@+id/dialog_get_a_reading_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Confirm" />
+
+        <Button
+            android:id="@+id/dialog_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
+    </LinearLayout>
+</LinearLayout>

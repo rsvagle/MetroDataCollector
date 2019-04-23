@@ -51,4 +51,14 @@
     <string name="add_a_reading_btn">Add a reading</string>
     <string name="site_readings_text">The current readings for this site are:</string>
     <string name="export_site_btn">Export Site</string>
+    <string name="add_study_title">Add Study</string>
+    <string name="dialog_ask_study_id">Enter the study id:</string>
+    <string name="dialog_ask_study_name">Enter study name:</string>
+    <string name="add_site_title">Add Site</string>
+    <string name="dialog_ask_ite_id">Enter the site id:</string>
+    <string name="add_a_reading_title">Add a Reading</string>
+    <string name="dialog_ask_a_reading_id">Enter reading id</string>
+    <string name="dialog_ask_a_reading_typ">Enter reading type</string>
+    <string name="dialog_ask_a_reading_unit">Enter the unit for the reading</string>
+    <string name="dialog_ask_a_reading_value">Enter the reading value</string>
 </resources>

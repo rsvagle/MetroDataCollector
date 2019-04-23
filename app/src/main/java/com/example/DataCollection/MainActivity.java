@@ -1,13 +1,18 @@
 package com.example.DataCollection;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -79,8 +84,35 @@ public class MainActivity extends AppCompatActivity {
         addStudyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Study newStudy = new Study("xxx", "MyStudy");
-                record.addStudy(newStudy);
+                final Dialog dialog = new Dialog(myContext);
+                dialog.setContentView(R.layout.dialog_add_study);
+                dialog.setTitle("Add a study");
+
+                // set the custom dialog components - text, image and button
+                TextView askIdText = (TextView) dialog.findViewById(R.id.dialog_ask_study_id);
+                TextView askNameText = (TextView) dialog.findViewById(R.id.dialog_ask_study_name);
+                final EditText getIdText = (EditText) dialog.findViewById(R.id.dialog_get_study_id);
+                final EditText getNameText = (EditText) dialog.findViewById(R.id.dialog_get_study_name);
+
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                dialogCancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String newStudyId = getIdText.getText().toString();
+                        String newStudyName = getNameText.getText().toString();
+                        Study newStudy = new Study(newStudyId, newStudyName);
+                        record.addStudy(newStudy);
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
                 studyListView.setAdapter(adapter);
             }
         });

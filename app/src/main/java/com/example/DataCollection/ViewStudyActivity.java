@@ -1,11 +1,13 @@
 package com.example.DataCollection;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,13 +44,35 @@ public class ViewStudyActivity extends AppCompatActivity {
         addSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random rand = new Random();
-                String newId = "" + rand.nextInt(100);
-                Site newSite = new Site(newId);
-                newSite.setRecording(true);
-                theRecord.getStudyByID(currentStudy.getStudyID()).addSite(newSite);
-                SiteListAdapter newadapter = new SiteListAdapter(currentContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
-                siteListView.setAdapter(newadapter);
+                final Dialog dialog = new Dialog(currentContext);
+                dialog.setContentView(R.layout.dialog_add_site);
+                dialog.setTitle("Add a site");
+
+                // set the custom dialog components - text, image and button
+                TextView askIdText = (TextView) dialog.findViewById(R.id.dialog_ask_site_id);
+                final EditText getIdText = (EditText) dialog.findViewById(R.id.dialog_get_site_id);
+
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                dialogCancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String newSiteId = getIdText.getText().toString();
+                        Site newSite = new Site(newSiteId);
+                        newSite.setRecording(true);
+                        theRecord.getStudyByID(currentStudy.getStudyID()).addSite(newSite);
+                        dialog.dismiss();
+                        SiteListAdapter newadapter = new SiteListAdapter(currentContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
+                        siteListView.setAdapter(newadapter);
+                    }
+                });
+                dialog.show();
             }
         });
     }
