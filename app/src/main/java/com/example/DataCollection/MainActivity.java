@@ -130,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
         /*
             Try to write the record to internal storage
          */
-        Gson myGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String myJsonString = myGson.toJson(record);
         Log.d(TAG, "onDestroy: Started");
         try {
             jsonWriter.writeToFileRecord(record, STATE_FILEPATH, myContext);

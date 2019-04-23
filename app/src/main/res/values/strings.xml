@@ -61,4 +61,6 @@
     <string name="dialog_ask_a_reading_typ">Enter reading type</string>
     <string name="dialog_ask_a_reading_unit">Enter the unit for the reading</string>
     <string name="dialog_ask_a_reading_value">Enter the reading value</string>
+    <string name="add_readings_title">Add readings from file</string>
+    <string name="dialog_ask_file_name">Enter the filename with extension. (i.e. myfile.xml)</string>
 </resources>

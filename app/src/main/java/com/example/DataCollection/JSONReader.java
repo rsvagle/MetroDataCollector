@@ -31,10 +31,8 @@ public class JSONReader implements IReader{
 		
 	}
 
-	public void readFile(File fileName) throws IOException {
-		File myFile = fileName;
-		FileInputStream fis = new FileInputStream(myFile);
-		InputStreamReader isr = new InputStreamReader(fis);
+	public void readFile(InputStream is) throws IOException {
+		InputStreamReader isr = new InputStreamReader(is);
 		Gson myGson = new Gson();
 		myReadings = myGson.fromJson(isr, Readings.class);
 		isr.close();
@@ -52,13 +50,13 @@ public class JSONReader implements IReader{
 	 * @return
 	 * A readings object containing the items in the file
 	 */	
-	public Readings getReadings(File fileName) throws Exception{
-		this.readFile(fileName);
+	public Readings getReadings(InputStream is) throws Exception{
+		this.readFile(is);
 		return myReadings;
 	}
 	
-	public Study getStudy(File fileName) throws Exception{
-		this.readFile(fileName);
+	public Study getStudy(InputStream is) throws Exception{
+		this.readFile(is);
 		myStudy = new Study("xxx","UnknownStudy");
 		myStudy.setSiteForReading(myReadings);
 		myStudy.addReadings(myReadings);

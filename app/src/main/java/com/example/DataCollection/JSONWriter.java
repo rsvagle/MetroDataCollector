@@ -9,10 +9,12 @@ import com.google.gson.JsonArray;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Iterator;
 
 public class JSONWriter {
 
     public static final String TAG = "JSONWriter";
+
     public JSONWriter(){
 
     }
@@ -40,21 +42,28 @@ public class JSONWriter {
     }
 
     public void writeToFileRecord(Record studyRecord, String outputFileName, Context context) throws Exception{
-        //path and construct of the output file
-        FileOutputStream fos;
-        Log.d(TAG, "create File Output Stream");
-
-        String myJson = "hi";
+        String myJson;
         Log.d(TAG, "create String");
 
         Gson myGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        JsonArray jObject = new JsonArray();
-        for(Study s : studyRecord.getStudies()){
-            jObject.add(myGson.toJsonTree(s));
+        Log.d(TAG, "create Gson");
+
+        JsonArray myObj = new JsonArray();
+        Log.d(TAG, "create Json Array");
+
+        Iterator<Study> it = studyRecord.iterator();
+        Log.d(TAG, "create iterator");
+
+        while(it.hasNext()) {
+            myObj.add(myGson.toJsonTree(it.next()));
         }
-        myJson = myGson.toJson(jObject);
+        Log.d(TAG, "Iterated");
+
+        myJson = myGson.toJson(myObj);
         Log.d(TAG, "JSON Object made");
 
+        FileOutputStream fos;
+        Log.d(TAG, "create File Output Stream");
         fos = context.openFileOutput(outputFileName, Context.MODE_PRIVATE);
         Log.d(TAG, "FileOutput is open");
         fos.write(myJson.getBytes());
