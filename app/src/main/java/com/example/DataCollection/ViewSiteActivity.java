@@ -109,7 +109,8 @@ public class ViewSiteActivity extends AppCompatActivity {
                         String filePath = getFileNameText.getText().toString();
                         try {
                             FileInputStream fileInputStream = myContext.openFileInput(filePath);
-                            Readings importedReadings = jsonReader.getReadings(fileInputStream);
+                            IReaderFactory fac = new IReaderFactory(filePath);
+                            Readings importedReadings = fac.getIReader().getReadings(fileInputStream);
                             theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).addReadings(importedReadings);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();

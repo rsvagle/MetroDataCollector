@@ -103,7 +103,8 @@ public class ViewStudyActivity extends AppCompatActivity {
                         String filePath = getFileNameText.getText().toString();
                         try {
                             FileInputStream fileInputStream = currentContext.openFileInput(filePath);
-                            Readings importedReadings = jsonReader.getReadings(fileInputStream);
+                            IReaderFactory fac = new IReaderFactory(filePath);
+                            Readings importedReadings = fac.getIReader().getReadings(fileInputStream);
                             theRecord.getStudyByID(currentStudy.getStudyID()).addReadings(importedReadings);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
