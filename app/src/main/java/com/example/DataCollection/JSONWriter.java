@@ -12,16 +12,18 @@ import java.util.Iterator;
 
 public class JSONWriter {
 
-    File outputFile;
+    public JSONWriter(){
+
+    }
     /**
      * WriteToFile method takes as a parameters a list of sites
      * and a file name. It write the sites in the list to a file on the disk
      */
-    public void writeToFile(Record studyRecord, String outputFileName) throws Exception{
+    public void writeToFile(Record studyRecord, File outputFile) throws Exception{
 
         //path and construct of the output file
-        outputFile = new File(Environment.getExternalStorageDirectory() + outputFileName);
-        FileOutputStream fos = new FileOutputStream(outputFile);
+        File myOutputFile = outputFile;
+        FileOutputStream fos = new FileOutputStream(myOutputFile);
 
         //Write JSON object in pretty format
         Gson myGson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();

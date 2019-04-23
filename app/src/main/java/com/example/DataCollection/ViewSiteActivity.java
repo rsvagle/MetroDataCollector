@@ -5,25 +5,29 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class ViewSiteActivity extends AppCompatActivity {
+
+    private JSONReader jsonReader = new JSONReader();
+    private Site currentSite;
+    public static final String TAG = "ViewSiteActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_site);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Log.d(TAG, "onCreate: Started.");
+        currentSite = (Site) getIntent().getSerializableExtra("site");
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        TextView siteIDTv = findViewById(R.id.site_id_tv);
+        siteIDTv.setText("Site ID: " + currentSite.getSiteID());
+        TextView siteStatusTv = findViewById(R.id.site_status_tv);
+        siteStatusTv.setText("Site Status: " + currentSite.isRecording());
+        TextView siteItemsTv = findViewById(R.id.site_items_view);
+        siteItemsTv.setText(currentSite.getItems().toString());
     }
 
 }

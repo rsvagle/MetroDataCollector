@@ -46,4 +46,9 @@
     <string name="export_study_btn">Export Study</string>
     <string name="add_site_btn">Add Site</string>
     <string name="choose_site_text">Choose a site to view it\'s data</string>
+    <string name="title_activity_import_study">ImportStudyActivity</string>
+    <string name="title_activity_add_readings">AddReadingsActivity</string>
+    <string name="add_a_reading_btn">Add a reading</string>
+    <string name="site_readings_text">The current readings for this site are:</string>
+    <string name="export_site_btn">Export Site</string>
 </resources>

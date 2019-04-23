@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.DataCollection.MainActivity">
+    tools:context="com.example.DataCollection.ViewStudyActivity">
 
     <Button
         android:id="@+id/add_readings_btn"
