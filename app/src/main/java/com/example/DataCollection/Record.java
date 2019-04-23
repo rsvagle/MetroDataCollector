@@ -18,7 +18,7 @@ import java.util.List;
 public class Record implements Serializable {
 	private static final Object LOCK = new Object();
 	private static Record  recordSelf = null;
-	private static Study unknownStudy = new Study("UnknownStudy", "UnknownStudy");
+	private static Study unknownStudy = new Study("xxx", "UnknownStudy");
 	@SerializedName("Record_Studies")
 	@Expose
 	private static List<Study> studySet;
@@ -33,7 +33,7 @@ public class Record implements Serializable {
 		if(recordSelf == null) {
 			synchronized (LOCK) {
 				if(recordSelf == null) {
-					unknownStudy = new Study("UnknownStudy", "UnknownStudy");
+					unknownStudy = new Study("xxx", "UnknownStudy");
 					recordSelf = new Record();
 					studySet = new ArrayList<Study>(Arrays.asList(unknownStudy));
 				}

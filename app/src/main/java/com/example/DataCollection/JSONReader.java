@@ -59,7 +59,7 @@ public class JSONReader implements IReader{
 	
 	public Study getStudy(File fileName) throws Exception{
 		this.readFile(fileName);
-		myStudy = new Study("UnknownStudy","UnknownStudy");
+		myStudy = new Study("xxx","UnknownStudy");
 		myStudy.setSiteForReading(myReadings);
 		myStudy.addReadings(myReadings);
 		return myStudy;

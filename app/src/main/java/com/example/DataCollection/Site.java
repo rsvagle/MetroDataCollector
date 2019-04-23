@@ -30,7 +30,7 @@ public class Site  implements Serializable {
 	public Site() {
 		recording = false;
 		active = true;
-		studyID = "UnknownStudy";
+		studyID = "xxx";
 	}
 	
 	public Site (String id) {
