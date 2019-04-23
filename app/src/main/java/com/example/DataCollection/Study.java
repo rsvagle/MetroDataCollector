@@ -54,7 +54,13 @@ public class Study implements Serializable {
 	 * void
 	 */
 	public void addSite(Site site) {
-		associatedSites.putIfAbsent(site.getSiteID(), site);
+		site.setStudyID(this.getStudyID());
+		associatedSites.put(site.getSiteID(), site);
+	}
+
+	public void addSiteTwo(String siteID){
+		Site newSite = new Site(siteID);
+		associatedSites.put(siteID, newSite);
 	}
 	
 	/**

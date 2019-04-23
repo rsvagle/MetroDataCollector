@@ -43,6 +43,7 @@ public class SiteListAdapter extends ArrayAdapter<Site> {
             public void onClick(View v) {
                 Intent viewSiteIntent = new Intent(getContext(), ViewSiteActivity.class);
                 viewSiteIntent.putExtra("site", currentSite);
+                viewSiteIntent.putExtra("studyID", currentSite.getStudyID());
                 myContext.startActivity(viewSiteIntent);
             }
         });

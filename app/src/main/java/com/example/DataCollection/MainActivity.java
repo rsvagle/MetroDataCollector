@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static Record record;
     public static final String TAG = "MainActivity";
     private static final String STATE_FILEPATH = "STATE_FILE.json";
-    final Context myContext = getApplicationContext();
+    final Context myContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
         Button studyImportButton = findViewById(R.id.ImportDataButton);
         Button studyAddReadingsButton = findViewById(R.id.add_readings_btn);
         Button recordExportButton = findViewById(R.id.exportRecordBtn);
+        Button addStudyButton = findViewById(R.id.add_study_btn);
         final ListView studyListView = findViewById(R.id.StudyListView);
-        StudyListAdapter adapter = new StudyListAdapter(this, R.layout.adapter_study_list, record.getStudies());
+        final StudyListAdapter adapter = new StudyListAdapter(this, R.layout.adapter_study_list, record.getStudies());
         studyListView.setAdapter(adapter);
 
         Study newStudy = new Study("101", "Ryan's Study");
@@ -68,8 +72,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent addReadingsIntent = new Intent(myContext, AddReadingsActivity.class);
+
+            }
+        });
+
+        addStudyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Study newStudy = new Study("xxx", "MyStudy");
                 record.addStudy(newStudy);
+                studyListView.setAdapter(adapter);
             }
         });
 
@@ -86,10 +98,13 @@ public class MainActivity extends AppCompatActivity {
         /*
             Try to write the record to internal storage
          */
-        File outputFile = new File(getFilesDir(), STATE_FILEPATH);
+        Gson myGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String myJsonString = myGson.toJson(record);
+        Log.d(TAG, "onDestroy: Started");
         try {
-            jsonWriter.writeToFile(record, outputFile);
+            jsonWriter.writeToFileRecord(record, STATE_FILEPATH, myContext);
         } catch (Exception e) {
+            Log.d(TAG, "onDestroy: caught exception!");
             e.printStackTrace();
         }
     }

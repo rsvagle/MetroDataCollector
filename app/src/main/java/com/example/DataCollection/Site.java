@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Site  implements Serializable {
 	private Study study;
-	
+
 	@SerializedName("recording")
 	@Expose
 	private boolean recording;
@@ -93,20 +93,20 @@ public class Site  implements Serializable {
 	public void setRecording(boolean bool) {
 		this.recording = bool;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public Study getStudy() {
 		return this.study;
 	}
-	
+
 	public void setStudy(Study s) {
 		this.study = s;
 		this.studyID = s.getStudyID();
 	}
-	
+
 	/**
 	 * 
 	 * @return
