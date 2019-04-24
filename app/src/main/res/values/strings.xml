@@ -67,4 +67,6 @@
     <string name="dialog_ask_file_name">Enter the name of the file: (i.e. example.xml)</string>
     <string name="addReadingCancel">Cancel</string>
     <string name="addReadingConfirm">Confirm</string>
+    <string name="export_to_file_text">Export to File</string>
+    <string name="dialog_ask_output_file_name">Enter the name of the .json file to write (i.e. myFile.json)</string>
 </resources>

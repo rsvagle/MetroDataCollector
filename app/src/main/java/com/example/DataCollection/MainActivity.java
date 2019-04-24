@@ -29,20 +29,24 @@ import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private JSONWriter jsonWriter = new JSONWriter();
-    private JSONReader jsonReader = new JSONReader();
-    private static Record record;
     public static final String TAG = "MainActivity";
     private static final String STATE_FILEPATH = "STATE_FILE.json";
-    final Context myContext = this;
+
+    private IReaderFactory iReaderFactory;
+    private JSONWriter jsonWriter = new JSONWriter();
+    private JSONReader jsonReader = new JSONReader();
+
+    private static Record record;
+    private final Context myContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Started.");
-        /*
-            Try to load the record from internal storage. If it fails, create a blank record.
+
+        /**
+         * Try to load the record from internal storage. If it fails, create a blank record.
          */
         try {
             FileInputStream fileInputStream = myContext.openFileInput(STATE_FILEPATH);
@@ -52,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /*
-            Initialize Buttons and Views
+
+        /**
+         * Initialize Buttons and Views
          */
         Button studyImportButton = findViewById(R.id.ImportDataButton);
         Button recordAddReadingsButton = findViewById(R.id.add_readings_btn);
@@ -63,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
         final StudyListAdapter adapter = new StudyListAdapter(this, R.layout.adapter_study_list, record.getStudies());
         studyListView.setAdapter(adapter);
 
-        Study newStudy = new Study("101", "Ryan's Study");
-        record.addStudy(newStudy);
 
+        /**
+         * Set buttons
+         */
+
+        /**
+         *  Import Study from file button
+         */
         studyImportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
                         String filePath = getFileNameText.getText().toString();
                         try {
                             FileInputStream fileInputStream = myContext.openFileInput(filePath);
-                            IReaderFactory fac = new IReaderFactory(filePath);
-                            Study importedStudy = fac.getIReader().getStudy(fileInputStream);
+                            iReaderFactory = new IReaderFactory(filePath);
+                            Study importedStudy = iReaderFactory.getIReader().getStudy(fileInputStream);
                             record.importStudy(importedStudy);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -108,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         *  Add Readings from file button
+         */
         recordAddReadingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         *  Manually add a study button
+         */
         addStudyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
                 Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -181,29 +198,67 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
                 dialog.show();
                 studyListView.setAdapter(adapter);
             }
         });
 
+        /**
+         *  Export to file button
+         */
         recordExportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Dialog dialog = new Dialog(myContext);
+                dialog.setContentView(R.layout.dialog_export_to_file);
+                dialog.setTitle("Export File");
 
+                // set the custom dialog components - text, image and button
+                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_output_file_name);
+                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
+
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+
+                dialogCancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String filePath = getFileNameText.getText().toString();
+                        try {
+                            jsonWriter.writeToFileRecord(record, filePath, myContext);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
     }
 
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         /*
             Try to write the record to internal storage
          */
-        Log.d(TAG, "onDestroy: Started");
+        Log.d(TAG, "onStop: Started");
         try {
+            Log.d(TAG, "onStop: WritingToFile");
             jsonWriter.writeToFileRecord(record, STATE_FILEPATH, myContext);
         } catch (Exception e) {
-            Log.d(TAG, "onDestroy: caught exception!");
+            Log.d(TAG, "onStop: caught exception!");
             e.printStackTrace();
         }
     }
