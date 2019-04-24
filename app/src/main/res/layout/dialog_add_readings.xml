@@ -3,6 +3,7 @@
     android:layout_width="210dp"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
+    android:background="@color/backgroundColor"
     android:orientation="vertical">
 
     <TextView
@@ -10,19 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_readings_title"
+        android:textColor="@color/whiteText"
+        android:background="@drawable/header_appearance"
+        android:textAlignment="center"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/dialog_ask_file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_ask_file_name" />
+        android:layout_marginTop="8sp"
+        android:text="@string/dialog_ask_file_name"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteText"
+        android:textSize="18sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
+        />
 
     <EditText
         android:inputType="text"
         android:id="@+id/dialog_get_file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
+        android:background="@drawable/edit_round"
         />
 
     <LinearLayout
@@ -35,13 +54,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Confirm" />
+            android:text="@string/addReadingConfirm"
+            android:background="@drawable/button_round"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteText"
+            android:layout_marginBottom="16sp"
+            android:layout_marginStart="8sp"
+            android:layout_marginEnd="8sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"/>
 
         <Button
             android:id="@+id/dialog_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="@string/addReadingCancel"
+            android:background="@drawable/button_round"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteText"
+            android:layout_marginBottom="16sp"
+            android:layout_marginEnd="8sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"/>
     </LinearLayout>
+
 </LinearLayout>

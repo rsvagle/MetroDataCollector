@@ -11,7 +11,9 @@
         android:id="@+id/list_study_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="15"
+        android:layout_weight="20"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
         android:textColor="@color/whiteText"
         android:textStyle="bold"
         android:text="TextView" />
@@ -21,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/whiteText"
-        android:layout_weight="65"
+        android:layout_weight="60"
         android:textStyle="bold"
         android:text="TextView" />
 

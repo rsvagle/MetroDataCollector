@@ -65,4 +65,6 @@
     <string name="study_view">Study View</string>
     <string name="add_readings_title">Add Readings</string>
     <string name="dialog_ask_file_name">Enter the name of the file: (i.e. example.xml)</string>
+    <string name="addReadingCancel">Cancel</string>
+    <string name="addReadingConfirm">Confirm</string>
 </resources>
