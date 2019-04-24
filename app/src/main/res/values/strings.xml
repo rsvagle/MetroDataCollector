@@ -63,4 +63,6 @@
     <string name="dialog_ask_a_reading_value">Enter the reading value</string>
     <string name="site_view">Site View</string>
     <string name="study_view">Study View</string>
+    <string name="add_readings_title">Add Readings</string>
+    <string name="dialog_ask_file_name">Enter the name of the file: (i.e. example.xml)</string>
 </resources>
