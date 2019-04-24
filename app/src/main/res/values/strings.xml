@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DataCollection</string>
-    <string name="import_data_btn">Import Data</string>
-    <string name="add_readings_btn">Add Readings</string>
+    <string name="import_data_btn">Import Study from File</string>
+    <string name="add_readings_btn">Add Readings from File</string>
     <string name="export_record_btn">Export Record</string>
     <string name="add_study_btn">Add Study</string>
     <string name="importButton">Import Readings</string>

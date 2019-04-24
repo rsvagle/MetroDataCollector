@@ -40,7 +40,7 @@ public class ViewStudyActivity extends AppCompatActivity {
         TextView studyName = findViewById(R.id.study_name_textView);
         studyName.setText(currentStudy.getStudyName());
         TextView studyId = findViewById(R.id.study_id_tv);
-        studyId.setText("ID: " + currentStudy.getStudyID());
+        studyId.setText("Study ID: " + currentStudy.getStudyID());
         Button studyAddReadingsButton = findViewById(R.id.add_readings_btn);
         Button exportStudyButton = findViewById(R.id.export_study_btn);
         Button addSiteButton = findViewById(R.id.add_site_btn);
