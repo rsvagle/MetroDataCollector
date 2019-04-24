@@ -7,6 +7,7 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,13 +30,11 @@ public class XMLReader implements IReader{
 		saxParserFactory = SAXParserFactory.newInstance();
 	}
 	
-	public void readXML(File fileName) {
+	public void readXML(InputStream is) {
 		try {
-			File stateFile = fileName;
-			FileInputStream fis = new FileInputStream(stateFile);
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 			XMLSAXParserHandler handler = new XMLSAXParserHandler();
-			saxParser.parse(fis, handler);
+			saxParser.parse(is, handler);
 			//Get Item List
 			myStudy = handler.getStudy();
 			readings.setReadings(handler.getItemList());
@@ -53,8 +52,8 @@ public class XMLReader implements IReader{
 	/**
 	 * Read the XML file
 	 */
-	public Readings getReadings(File fileName)  throws Exception{
-		this.readXML(fileName);
+	public Readings getReadings(InputStream is)  throws Exception{
+		this.readXML(is);
 		return readings;
 	}
 	
@@ -62,8 +61,8 @@ public class XMLReader implements IReader{
 	 * This method returns the study imported from the input file
 	 * @return
 	 */
-	public Study getStudy(File fileName)  throws Exception{
-		this.readXML(fileName);
+	public Study getStudy(InputStream is)  throws Exception{
+		this.readXML(is);
 		myStudy.setSiteForReading(readings);
 		myStudy.addReadings(readings);
 		return myStudy;

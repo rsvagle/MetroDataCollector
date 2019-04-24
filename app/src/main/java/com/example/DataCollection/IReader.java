@@ -1,11 +1,12 @@
 package com.example.DataCollection;
 
 import java.io.File;
+import java.io.InputStream;
 
 public interface IReader {
 	
-	Readings getReadings(File fileName)  throws Exception;
+	Readings getReadings(InputStream is)  throws Exception;
 	
-	Study getStudy(File fileName) throws Exception;
+	Study getStudy(InputStream is) throws Exception;
 
 }

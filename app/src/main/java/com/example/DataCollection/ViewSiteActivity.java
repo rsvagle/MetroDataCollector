@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.Random;
 
@@ -33,15 +35,16 @@ public class ViewSiteActivity extends AppCompatActivity {
         final String currentStudyID = (String) getIntent().getSerializableExtra("studyID");
         final Record theRecord = Record.getInstance();
 
+        Button addReadingsButton = findViewById(R.id.add_readings_btn);
         TextView siteIDTv = findViewById(R.id.site_id_tv);
         siteIDTv.setText("Site ID: " + currentSite.getSiteID());
         TextView siteStatusTv = findViewById(R.id.site_status_tv);
         siteStatusTv.setText("Site Status: " + currentSite.isRecording());
         final TextView siteItemsTv = findViewById(R.id.site_items_view);
         siteItemsTv.setText(currentSite.toString());
-        Button addAReading = findViewById(R.id.add_a_reading_btn);
+        Button addAReadingButton = findViewById(R.id.add_a_reading_btn);
 
-        addAReading.setOnClickListener(new View.OnClickListener() {
+        addAReadingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(myContext);
@@ -75,6 +78,48 @@ public class ViewSiteActivity extends AppCompatActivity {
                         theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).addItem(newItem);
                         siteItemsTv.setText(theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).toString());
                         dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+
+        addReadingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(myContext);
+                dialog.setContentView(R.layout.dialog_add_readings);
+                dialog.setTitle("Add readings");
+
+                // set the custom dialog components - text, image and button
+                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_file_name);
+                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
+
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                dialogCancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String filePath = getFileNameText.getText().toString();
+                        try {
+                            FileInputStream fileInputStream = myContext.openFileInput(filePath);
+                            IReaderFactory fac = new IReaderFactory(filePath);
+                            Readings importedReadings = fac.getIReader().getReadings(fileInputStream);
+                            theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).addReadings(importedReadings);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        siteItemsTv.setText(theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).toString());
+                        dialog.dismiss();
+
                     }
                 });
                 dialog.show();
