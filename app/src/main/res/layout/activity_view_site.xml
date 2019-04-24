@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:context="com.example.DataCollection.ViewSiteActivity">
 
@@ -10,7 +11,17 @@
         android:id="@+id/add_readings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45sp"
+        android:layout_marginBottom="8sp"
+        android:layout_marginEnd="8sp"
+        android:textStyle="bold"
+        android:paddingRight="8sp"
+        android:paddingLeft="8sp"
+        android:textSize="18sp"
         android:layout_alignParentTop="true"
+        android:background="@drawable/button_round"
+        android:textColor="@color/whiteText"
+        android:textAllCaps="false"
         android:layout_alignParentEnd="true"
         android:text="@string/add_readings_btn" />
 
@@ -18,6 +29,16 @@
         android:id="@+id/export_site_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_round"
+        android:textColor="@color/whiteText"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:layout_marginEnd="8sp"
+        android:textStyle="bold"
+        android:paddingRight="8sp"
+        android:paddingLeft="8sp"
+        android:textSize="18sp"
+        android:textAllCaps="false"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:text="@string/export_site_btn" />
@@ -26,39 +47,67 @@
         android:id="@+id/add_a_reading_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_round"
+        android:textColor="@color/whiteText"
+        android:layout_marginStart="8sp"
+        android:layout_marginBottom="8sp"
+        android:textStyle="bold"
+        android:paddingRight="8sp"
+        android:paddingLeft="8sp"
+        android:textSize="18sp"
+        android:textAllCaps="false"
         android:layout_below="@+id/site_status_tv"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15sp"
         android:text="@string/add_a_reading_btn" />
 
     <TextView
         android:id="@+id/site_readings_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_below="@id/add_a_reading_btn"
-        android:text="@string/site_readings_text" />
+        android:layout_marginTop="4dp"
+        android:paddingTop="6sp"
+        android:paddingBottom="6sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
+        android:text="@string/site_readings_text"
+        android:textAlignment="viewStart"
+        android:textColor="@color/whiteText"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/site_items_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/whiteText"
         android:layout_below="@id/site_readings_text"
         android:layout_above="@id/export_site_btn"
         />
 
     <TextView
         android:id="@+id/site_id_tv"
-        android:layout_width="290dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/header_appearance"
+        android:textAlignment="center"
         android:layout_alignParentTop="true"
-        android:text="TextView"
+        android:textColor="@color/whiteText"
+        android:text="@string/site_view"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/site_status_tv"
-        android:layout_width="290dp"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/site_id_tv"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="16dp"
+        android:paddingStart="8sp"
+        android:textStyle="bold"
+        android:paddingEnd="8sp"
         android:text="TextView"
-        android:textSize="14sp" />
+        android:textColor="@color/whiteText"
+        android:textSize="18sp" />
 
 </RelativeLayout>

@@ -3,26 +3,44 @@
     android:layout_width="210dp"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
+    android:background="@color/backgroundColor"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/dialog_add_site_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/header_appearance"
+        android:textAlignment="center"
         android:text="@string/add_site_title"
+        android:textColor="@color/whiteText"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/dialog_ask_site_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/whiteText"
+        android:textStyle="bold"
+        android:layout_marginTop="8sp"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
+        android:textSize="18sp"
         android:text="@string/dialog_ask_ite_id" />
 
     <EditText
         android:inputType="text"
         android:id="@+id/dialog_get_site_id"
         android:layout_width="match_parent"
+        android:background="@drawable/edit_round"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingLeft="8sp"
+        android:paddingRight="8sp"
         />
 
     <LinearLayout
@@ -35,6 +53,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/button_round"
+            android:textColor="@color/whiteText"
+            android:textAllCaps="false"
+            android:layout_marginStart="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_marginTop="15sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"
+            android:layout_marginBottom="8sp"
             android:text="Confirm" />
 
         <Button
@@ -42,6 +71,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/button_round"
+            android:textColor="@color/whiteText"
+            android:textAllCaps="false"
+            android:layout_marginStart="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_marginTop="15sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"
+            android:layout_marginBottom="8sp"
             android:text="Cancel" />
     </LinearLayout>
 </LinearLayout>
