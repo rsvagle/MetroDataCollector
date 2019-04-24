@@ -19,19 +19,24 @@ import java.util.Random;
 
 public class ViewStudyActivity extends AppCompatActivity {
 
-    private JSONReader jsonReader = new JSONReader();
-    private Study currentStudy;
     public static final String TAG = "ViewStudyActivity";
+    private static final String STATE_FILEPATH = "STATE_FILE.json";
+
+    private IReaderFactory iReaderFactory;
+    private JSONWriter jsonWriter = new JSONWriter();
+    private Study currentStudy;
+
+    private final Record theRecord = Record.getInstance();
+    private final Context myContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_study);
         Log.d(TAG, "onCreate: Started.");
-        final Record theRecord = Record.getInstance();
+
         currentStudy = (Study) getIntent().getSerializableExtra("study");
 
-        final Context currentContext = this;
         TextView studyName = findViewById(R.id.study_name_textView);
         studyName.setText(currentStudy.getStudyName());
         TextView studyId = findViewById(R.id.study_id_tv);
@@ -40,13 +45,16 @@ public class ViewStudyActivity extends AppCompatActivity {
         Button exportStudyButton = findViewById(R.id.export_study_btn);
         Button addSiteButton = findViewById(R.id.add_site_btn);
         final ListView siteListView = findViewById(R.id.site_list_view);
-        final SiteListAdapter adapter = new SiteListAdapter(currentContext, R.layout.adapter_site_list, currentStudy.getAllSites());
+        final SiteListAdapter adapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, currentStudy.getAllSites());
         siteListView.setAdapter(adapter);
 
+        /**
+         * Manually add site button
+         */
         addSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(currentContext);
+                final Dialog dialog = new Dialog(myContext);
                 dialog.setContentView(R.layout.dialog_add_site);
                 dialog.setTitle("Add a site");
 
@@ -70,7 +78,7 @@ public class ViewStudyActivity extends AppCompatActivity {
                         newSite.setRecording(true);
                         theRecord.getStudyByID(currentStudy.getStudyID()).addSite(newSite);
                         dialog.dismiss();
-                        SiteListAdapter newadapter = new SiteListAdapter(currentContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
+                        SiteListAdapter newadapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
                         siteListView.setAdapter(newadapter);
                     }
                 });
@@ -78,10 +86,13 @@ public class ViewStudyActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Add readings from file button
+         */
         studyAddReadingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(currentContext);
+                final Dialog dialog = new Dialog(myContext);
                 dialog.setContentView(R.layout.dialog_add_readings);
                 dialog.setTitle("Add readings");
 
@@ -102,9 +113,9 @@ public class ViewStudyActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String filePath = getFileNameText.getText().toString();
                         try {
-                            FileInputStream fileInputStream = currentContext.openFileInput(filePath);
-                            IReaderFactory fac = new IReaderFactory(filePath);
-                            Readings importedReadings = fac.getIReader().getReadings(fileInputStream);
+                            FileInputStream fileInputStream = myContext.openFileInput(filePath);
+                            iReaderFactory = new IReaderFactory(filePath);
+                            Readings importedReadings = iReaderFactory.getIReader().getReadings(fileInputStream);
                             theRecord.getStudyByID(currentStudy.getStudyID()).addReadings(importedReadings);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -113,8 +124,49 @@ public class ViewStudyActivity extends AppCompatActivity {
                         }
 
                         dialog.dismiss();
-                        SiteListAdapter newadapter = new SiteListAdapter(currentContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
+                        SiteListAdapter newadapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
                         siteListView.setAdapter(newadapter);
+                    }
+                });
+                dialog.show();
+            }
+        });
+
+        /**
+         * Export Study button
+         */
+        exportStudyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(myContext);
+                dialog.setContentView(R.layout.dialog_export_to_file);
+                dialog.setTitle("Export File");
+
+                // set the custom dialog components - text, image and button
+                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_output_file_name);
+                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
+
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                dialogCancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String filePath = getFileNameText.getText().toString();
+                        try {
+                            jsonWriter.writeToFileObject(theRecord.getStudyByID(currentStudy.getStudyID()), filePath, myContext);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        dialog.dismiss();
                     }
                 });
                 dialog.show();
@@ -122,4 +174,18 @@ public class ViewStudyActivity extends AppCompatActivity {
         });
     }
 
+    public void onStop() {
+        super.onStop();
+        /*
+            Try to write the record to internal storage
+         */
+        Log.d(TAG, "onStop: Started");
+        try {
+            Log.d(TAG, "onStop: WritingToFile");
+            jsonWriter.writeToFileRecord(theRecord, STATE_FILEPATH, this);
+        } catch (Exception e) {
+            Log.d(TAG, "onStop: caught exception!");
+            e.printStackTrace();
+        }
+    }
 }
