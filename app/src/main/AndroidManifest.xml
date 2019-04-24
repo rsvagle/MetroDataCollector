@@ -14,14 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AddReadingsActivity"
-            android:label="@string/title_activity_add_readings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ImportStudyActivity"
-            android:label="@string/title_activity_import_study"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ViewSiteActivity"
             android:label="@string/title_activity_view_site"
             android:theme="@style/AppTheme.NoActionBar" />
