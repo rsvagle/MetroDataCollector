@@ -71,14 +71,14 @@ public class ViewSiteActivity extends AppCompatActivity {
                 final EditText getReadingUnit = (EditText) dialog.findViewById(R.id.dialog_get_a_reading_unit);
 
                 Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
-                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogConfirmButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
-                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String newReadingId = getReadingIdText.getText().toString();
@@ -112,14 +112,14 @@ public class ViewSiteActivity extends AppCompatActivity {
                 final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
 
                 Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
-                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogConfirmButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
-                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String filePath = getFileNameText.getText().toString();
@@ -157,7 +157,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                 final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
 
                 Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
-                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogConfirmButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
 
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -166,7 +166,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                     }
                 });
 
-                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String filePath = getFileNameText.getText().toString();
