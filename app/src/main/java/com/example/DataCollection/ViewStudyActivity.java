@@ -10,11 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+import java.util.Random;
 
 public class ViewStudyActivity extends AppCompatActivity {
 
@@ -24,8 +25,6 @@ public class ViewStudyActivity extends AppCompatActivity {
     private IReaderFactory iReaderFactory;
     private JSONWriter jsonWriter = new JSONWriter();
     private Study currentStudy;
-    Button dialogCancelButton ;
-    Button dialogConfirmButton;
 
     private final Record theRecord = Record.getInstance();
     private final Context myContext = this;
@@ -41,17 +40,15 @@ public class ViewStudyActivity extends AppCompatActivity {
         TextView studyName = findViewById(R.id.study_name_textView);
         studyName.setText(currentStudy.getStudyName());
         TextView studyId = findViewById(R.id.study_id_tv);
-        String studyID = String.format("ID: %s",currentStudy.getStudyID());
-        studyId.setText(studyID);
+        studyId.setText("ID: " + currentStudy.getStudyID());
         Button studyAddReadingsButton = findViewById(R.id.add_readings_btn);
         Button exportStudyButton = findViewById(R.id.export_study_btn);
         Button addSiteButton = findViewById(R.id.add_site_btn);
         final ListView siteListView = findViewById(R.id.site_list_view);
-        final SiteListAdapter adapter = new SiteListAdapter(myContext, R.layout.adapter_site_list,
-                currentStudy.getAllSites());
+        final SiteListAdapter adapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, currentStudy.getAllSites());
         siteListView.setAdapter(adapter);
 
-        /*
+        /**
          * Manually add site button
          */
         addSiteButton.setOnClickListener(new View.OnClickListener() {
@@ -62,43 +59,34 @@ public class ViewStudyActivity extends AppCompatActivity {
                 dialog.setTitle("Add a site");
 
                 // set the custom dialog components - text, image and button
-                TextView askIdText = dialog.findViewById(R.id.dialog_ask_site_id);
-                final EditText getIdText = dialog.findViewById(R.id.dialog_get_site_id);
+                TextView askIdText = (TextView) dialog.findViewById(R.id.dialog_ask_site_id);
+                final EditText getIdText = (EditText) dialog.findViewById(R.id.dialog_get_site_id);
 
-                dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
-                dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
-
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Operation Cancelled", Toast.LENGTH_SHORT)
-                                .show();
                         dialog.dismiss();
                     }
                 });
-                dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String newSiteId = getIdText.getText().toString();
-                        if (!newSiteId.equals("")) {
-                            Site newSite = new Site(newSiteId);
-                            newSite.setRecording(true);
-                            theRecord.getStudyByID(currentStudy.getStudyID()).addSite(newSite);
-                            SiteListAdapter newAdapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
-                            siteListView.setAdapter(newAdapter);
-                            Toast.makeText(getApplicationContext(), "Site "+ newSiteId +" Created!",Toast.LENGTH_LONG ).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Site is NOT CREATED!",Toast.LENGTH_LONG ).show();
-                        }
+                        Site newSite = new Site(newSiteId);
+                        newSite.setRecording(true);
+                        theRecord.getStudyByID(currentStudy.getStudyID()).addSite(newSite);
                         dialog.dismiss();
-
+                        SiteListAdapter newadapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
+                        siteListView.setAdapter(newadapter);
                     }
                 });
                 dialog.show();
             }
         });
 
-        /*
+        /**
          * Add readings from file button
          */
         studyAddReadingsButton.setOnClickListener(new View.OnClickListener() {
@@ -109,20 +97,18 @@ public class ViewStudyActivity extends AppCompatActivity {
                 dialog.setTitle("Add readings");
 
                 // set the custom dialog components - text, image and button
-                TextView askFileNameText = dialog.findViewById(R.id.dialog_ask_file_name);
-                final EditText getFileNameText = dialog.findViewById(R.id.dialog_get_file_name);
+                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_file_name);
+                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
 
-                dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
-                dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Operation Cancelled", Toast.LENGTH_SHORT)
-                                .show();
                         dialog.dismiss();
                     }
                 });
-                dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String filePath = getFileNameText.getText().toString();
@@ -131,25 +117,22 @@ public class ViewStudyActivity extends AppCompatActivity {
                             iReaderFactory = new IReaderFactory(filePath);
                             Readings importedReadings = iReaderFactory.getIReader().getReadings(fileInputStream);
                             theRecord.getStudyByID(currentStudy.getStudyID()).addReadings(importedReadings);
-                            Toast.makeText(getApplicationContext(), "Readings Added",Toast.LENGTH_SHORT ).show();
-                            SiteListAdapter newAdapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
-                            siteListView.setAdapter(newAdapter);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        finally {
-                            dialog.dismiss();
-                        }
+
+                        dialog.dismiss();
+                        SiteListAdapter newadapter = new SiteListAdapter(myContext, R.layout.adapter_site_list, theRecord.getStudyByID(currentStudy.getStudyID()).getAllSites());
+                        siteListView.setAdapter(newadapter);
                     }
                 });
                 dialog.show();
             }
         });
 
-        /*
+        /**
          * Export Study button
          */
         exportStudyButton.setOnClickListener(new View.OnClickListener() {
@@ -159,38 +142,31 @@ public class ViewStudyActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_export_to_file);
                 dialog.setTitle("Export File");
 
-                /*
-                 * set the custom dialog components - text, image and button
-                 */
-                TextView askFileNameText = dialog.findViewById(R.id.dialog_ask_output_file_name);
-                final EditText getFileNameText =  dialog.findViewById(R.id.dialog_get_file_name);
+                // set the custom dialog components - text, image and button
+                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_output_file_name);
+                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
 
-                dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
-                dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Operation Cancelled", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
-                dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
+                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String filePath = getFileNameText.getText().toString();
                         try {
                             jsonWriter.writeToFileObject(theRecord.getStudyByID(currentStudy.getStudyID()), filePath, myContext);
-                            Toast.makeText(getApplicationContext(), "Study Successfully Exported!", Toast.LENGTH_SHORT)
-                                    .show();
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        finally {
-                            dialog.dismiss();
-                        }
+
+                        dialog.dismiss();
                     }
                 });
                 dialog.show();
@@ -201,7 +177,7 @@ public class ViewStudyActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         /*
-         * Try to write the record to internal storage
+            Try to write the record to internal storage
          */
         Log.d(TAG, "onStop: Started");
         try {

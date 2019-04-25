@@ -3,14 +3,14 @@ package com.example.DataCollection;
 import java.io.File;
 
 public class IReaderFactory {
-	private String fileType ;
-	private String myfileName ;
+	private String fileType = "";
+	private String myfileName = "";
 	IReader myReader;
 
 	public IReaderFactory(String fileName) {
 		fileType = getFileExtension(fileName);
 		myfileName = fileName;
-//		File myFile;
+		File myFile;
 	}
 
 	public String getFileExtension(String fileName) {

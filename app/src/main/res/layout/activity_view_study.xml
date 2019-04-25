@@ -99,7 +99,7 @@
         android:layout_width="281dp"
         android:layout_height="34dp"
         android:layout_below="@id/study_name_textView"
-        android:text="@string/study_ID_tv"
+        android:text="TextView"
         android:textColor="@color/whiteText"
         android:textAllCaps="false"
         android:textStyle="bold"
