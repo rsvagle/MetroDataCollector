@@ -191,7 +191,7 @@ public class Site  implements Serializable {
 	public String toString() {
 		String text = "";
 		for(Item i: siteReadings.values()) {
-			text += i.toString() + "\n\r";
+			text += i.toString() + "\n";
 		}
 		return text;
 	}

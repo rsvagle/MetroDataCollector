@@ -118,10 +118,10 @@ public class Item implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "{\nSite_id = " + siteID + "\nreading_type = " + readingType + 
-				"\nreading_id = " + readingID + "\nreading_value = " + readingValue + 
-				"\nreading_unit = "+ unit + "\nreading_date = " + readingDate +
-				"\n}";
+		return "Reading Id: " + readingID + "\n\n\tSite: " + siteID + "\n\tType: " + readingType +
+				"\n\tValue: " + readingValue +
+				"\n\tUnit: "+ unit + "\n\tDate: " + readingDate +
+				"\n";
 	}
 	
 	/**
