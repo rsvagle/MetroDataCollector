@@ -69,9 +69,6 @@
     <string name="addReadingConfirm">Confirm</string>
     <string name="export_to_file_text">Export to File</string>
     <string name="dialog_ask_output_file_name">Enter the name of the .json file to write (i.e. myFile.json)</string>
-<<<<<<< HEAD
     <string name="study_ID_tv">ID: </string>
-=======
     <string name="data_collector_title">Metro Data Collector</string>
->>>>>>> 88f720ba9a35b2ef976c5b570e79aa114ced51e4
 </resources>
