@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Started.");
 
-        /**
+        /*
          * Try to load the record from internal storage. If it fails, create a blank record.
          */
         try {
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        /**
+        /*
          * Initialize Buttons and Views
          */
         Button studyImportButton = findViewById(R.id.ImportDataButton);
@@ -69,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
         studyListView.setAdapter(adapter);
 
 
-        /**
+        /*
          * Set up buttons
          */
 
-        /**
+        /*
          *  Import Study from file button
          */
         studyImportButton.setOnClickListener(new View.OnClickListener() {
@@ -84,18 +85,20 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setTitle("Import readings");
 
                 // set the custom dialog components - text, image and button
-                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_file_name);
-                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
+                TextView askFileNameText = dialog.findViewById(R.id.dialog_ask_file_name);
+                final EditText getFileNameText = dialog.findViewById(R.id.dialog_get_file_name);
 
-                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
-                Button dialogConfimButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Operation Cancelled", Toast.LENGTH_SHORT)
+                                .show();
                         dialog.dismiss();
                     }
                 });
-                dialogConfimButton.setOnClickListener(new View.OnClickListener() {
+                dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String filePath = getFileNameText.getText().toString();
@@ -106,8 +109,13 @@ public class MainActivity extends AppCompatActivity {
                             record.importStudy(importedStudy);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
+                            getFileNameText.requestFocus();
                         } catch (Exception e) {
                             e.printStackTrace();
+                        } finally {
+                            dialog.dismiss();
+                            studyListView.setAdapter(adapter);
                         }
 
                         dialog.dismiss();
@@ -118,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
+        /*
          *  Add Readings from file button
          */
         recordAddReadingsButton.setOnClickListener(new View.OnClickListener() {
@@ -128,15 +136,18 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_add_readings);
                 dialog.setTitle("Add readings");
 
-                // set the custom dialog components - text, image and button
-                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_file_name);
-                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
+                /*
+                 * set the custom dialog components - text, image and button
+                 */
+                TextView askFileNameText = dialog.findViewById(R.id.dialog_ask_file_name);
+                final EditText getFileNameText = dialog.findViewById(R.id.dialog_get_file_name);
 
-                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
-                Button dialogConfirmButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Operation Cancelled!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -149,10 +160,15 @@ public class MainActivity extends AppCompatActivity {
                             IReaderFactory fac = new IReaderFactory(filePath);
                             Readings importedReadings = fac.getIReader().getReadings(fileInputStream);
                             record.addReadings(importedReadings);
+                            Toast.makeText(getApplicationContext(), "Readings added!", Toast.LENGTH_SHORT).show();
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
+                        } finally {
+                            dialog.dismiss();
+                            studyListView.setAdapter(adapter);
                         }
 
                         dialog.dismiss();
@@ -163,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
+        /*
          *  Manually add a study button
          */
         addStudyButton.setOnClickListener(new View.OnClickListener() {
@@ -173,18 +189,21 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_add_study);
                 dialog.setTitle("Add a study");
 
-                // set the custom dialog components - text, image and button
-                TextView askIdText = (TextView) dialog.findViewById(R.id.dialog_ask_study_id);
-                TextView askNameText = (TextView) dialog.findViewById(R.id.dialog_ask_study_name);
-                final EditText getIdText = (EditText) dialog.findViewById(R.id.dialog_get_study_id);
-                final EditText getNameText = (EditText) dialog.findViewById(R.id.dialog_get_study_name);
+                /*
+                 * set the custom dialog components - text, image and button
+                 */
+                TextView askIdText = dialog.findViewById(R.id.dialog_ask_study_id);
+                TextView askNameText = dialog.findViewById(R.id.dialog_ask_study_name);
+                final EditText getIdText = dialog.findViewById(R.id.dialog_get_study_id);
+                final EditText getNameText = dialog.findViewById(R.id.dialog_get_study_name);
 
-                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
-                Button dialogConfirmButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
 
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Operation Cancelled!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -193,8 +212,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String newStudyId = getIdText.getText().toString();
                         String newStudyName = getNameText.getText().toString();
-                        Study newStudy = new Study(newStudyId, newStudyName);
-                        record.addStudy(newStudy);
+                        if(!newStudyId.equals("") && !newStudyName.equals("")){
+                            Study newStudy = new Study(newStudyId, newStudyName);
+                            record.addStudy(newStudy);
+                            Toast.makeText(getApplicationContext(), "Study Created!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Study is NOT CREATED!", Toast.LENGTH_LONG).show();
+                        }
                         dialog.dismiss();
                     }
                 });
@@ -204,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
+        /*
          *  Export to file button
          */
         recordExportButton.setOnClickListener(new View.OnClickListener() {
@@ -214,16 +238,19 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_export_to_file);
                 dialog.setTitle("Export File");
 
-                // set the custom dialog components - text, image and button
-                TextView askFileNameText = (TextView) dialog.findViewById(R.id.dialog_ask_output_file_name);
-                final EditText getFileNameText = (EditText) dialog.findViewById(R.id.dialog_get_file_name);
+                /*
+                 * set the custom dialog components - text, image and button
+                 */
+                TextView askFileNameText = dialog.findViewById(R.id.dialog_ask_output_file_name);
+                final EditText getFileNameText = dialog.findViewById(R.id.dialog_get_file_name);
 
-                Button dialogCancelButton = (Button) dialog.findViewById(R.id.dialog_cancel_btn);
-                Button dialogConfirmButton = (Button) dialog.findViewById(R.id.dialog_confirm_btn);
+                Button dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
+                Button dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
 
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Operation Cancelled", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -236,8 +263,11 @@ public class MainActivity extends AppCompatActivity {
                             jsonWriter.writeToFileRecord(record, filePath, myContext);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
+                        } finally {
+                            dialog.dismiss();
                         }
 
                         dialog.dismiss();
