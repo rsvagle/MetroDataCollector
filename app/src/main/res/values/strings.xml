@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DataCollection</string>
-    <string name="import_data_btn">Import Data</string>
-    <string name="add_readings_btn">Add Readings</string>
+    <string name="import_data_btn">Import Study from File</string>
+    <string name="add_readings_btn">Add Readings from File</string>
     <string name="export_record_btn">Export Record</string>
     <string name="add_study_btn">Add Study</string>
     <string name="importButton">Import Readings</string>
@@ -65,4 +65,10 @@
     <string name="study_view">Study View</string>
     <string name="add_readings_title">Add Readings</string>
     <string name="dialog_ask_file_name">Enter the name of the file: (i.e. example.xml)</string>
+    <string name="addReadingCancel">Cancel</string>
+    <string name="addReadingConfirm">Confirm</string>
+    <string name="export_to_file_text">Export to File</string>
+    <string name="dialog_ask_output_file_name">Enter the name of the .json file to write (i.e. myFile.json)</string>
+    <string name="study_ID_tv">ID: </string>
+    <string name="data_collector_title">Metro Data Collector</string>
 </resources>

@@ -8,10 +8,20 @@
     >
 
     <TextView
-        android:id="@+id/list_site_id"
+        android:id="@+id/list_site_study_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="20"
+        android:layout_marginStart="8sp"
+        android:textColor="@color/whiteText"
+        android:textStyle="bold"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/list_site_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
         android:textColor="@color/whiteText"
         android:textStyle="bold"
         android:text="TextView" />
@@ -20,7 +30,7 @@
         android:id="@+id/list_site_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="50"
+        android:layout_weight="30"
         android:textColor="@color/whiteText"
         android:textStyle="bold"
         android:text="TextView" />
@@ -29,12 +39,13 @@
         android:id="@+id/view_site_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="30"
+        android:layout_weight="20"
         android:background="@drawable/button_round"
         android:textColor="@color/whiteText"
         android:layout_marginEnd="8sp"
         android:layout_marginTop="8sp"
-        android:textSize="18sp"
+        android:layout_marginBottom="8sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:text="View Site" />
