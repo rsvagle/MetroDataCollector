@@ -17,12 +17,28 @@ public class SiteListAdapter extends ArrayAdapter<Site> {
 
     private Context myContext;
     int myResource;
+    
+    /**
+     * Adapts the site list to android
+     * @param context
+     * @param resource
+     * @param objects
+     */
 
     public SiteListAdapter(Context context, int resource, List<Site> objects) {
         super(context, resource, objects);
         this.myContext = context;
         this.myResource = resource;
     }
+    
+    /**
+     * Sets the view for the app
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     * view settings
+     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

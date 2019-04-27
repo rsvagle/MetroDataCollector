@@ -21,27 +21,59 @@ public class Study implements Serializable {
 	@Expose
 	private Map<String,Site> associatedSites = new HashMap<String, Site>();
 	
+	/**
+	 * initializes the study
+	 */
+	
 	public Study() {
 		this.studyID = "";
 		this.studyName = "";
 	}
+	
+	/**
+	 * sets study name and ID
+	 * @param studyID
+	 * @param studyName
+	 */
   
 	public Study(String studyID, String studyName) {
 		this.studyID = studyID;
 		this.studyName = studyName;		
 	}
+	
+	/**
+	 * Gets the study name
+	 * @return
+	 * studyName
+	 */
 
 	public String getStudyName() {
 		return studyName;
 	}
+	
+	/**
+	 * Set the study Name
+	 * @param studyName
+	 */
 
 	public void setStudyName(String studyName) {
 		this.studyName = studyName;
 	}
+	
+	/**
+	 * Get the studyID
+	 * @return
+	 * studyID
+	 */
 
 	public String getStudyID() {
 		return studyID;
 	}
+	
+	/**
+	 * Set the study ID
+	 * @param studyId
+	 */
 
 	public void setStudyID(String studyId) {
 		this.studyID = studyId;
@@ -77,7 +109,7 @@ public class Study implements Serializable {
 	/**
 	 * The addItem method takes a Item object and adds it to the appropriate
 	 * site in the study. If the site doesn't exist within the study, create it
-	 * @param
+	 * @param i
 	 * @return
 	 * A boolean value is returned indicating whether or not the item is in the site
 	 */
@@ -96,7 +128,7 @@ public class Study implements Serializable {
 	/**
 	 * The addReadings method takes a Readings object and adds the items to the appropriate
 	 * site in the study.
-	 * @param
+	 * @param r
 	 * @return
 	 * void
 	 */
@@ -111,7 +143,7 @@ public class Study implements Serializable {
 	/**
 	 * setSitesForReading method takes a Readings object and sets up a list
 	 * of sites associated with each reading object under a study
-	 * @param
+	 * @param reading
 	 * @return
 	 * void
 	 */
@@ -135,7 +167,7 @@ public class Study implements Serializable {
 	/**
 	 * This method takes an ID string as parameter and return 
 	 * a site from study that match the input string ID
-	 * @param
+	 * @param siteID
 	 * @return
 	 * a Site is return to the caller
 	 */
@@ -146,6 +178,7 @@ public class Study implements Serializable {
 	/**
 	 * Return a list of sites in study
 	 * @return
+	 *  all sites
 	 */
 	public ArrayList<Site> getAllSites() {
 		ArrayList<Site> mySites = new ArrayList<Site>(associatedSites.values());
