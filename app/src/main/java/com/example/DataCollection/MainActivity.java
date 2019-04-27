@@ -28,6 +28,16 @@ public class MainActivity extends AppCompatActivity {
     Button dialogCancelButton;
     Button dialogConfirmButton;
 
+    
+	/**
+	 * onCreate starts up the GUI for the android application, while 
+	 * it also checks to see if a previous state has been saved to reopen. 
+	 * @param savedInstanceSate
+	 * 
+	 * @return
+	 * void
+	 */
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,6 +270,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    
+	/**
+	 * onStop saved the record to internal storage.  
+	 * @param void
+	 * 
+	 * @return
+	 * void
+	 */
 
     public void onStop() {
         super.onStop();

@@ -30,6 +30,15 @@ public class JSONReader implements IReader{
 	public JSONReader() {
 		
 	}
+	
+	
+	/**
+	 * The readFile method takes JSON files and reads them.
+	 * @param is
+	 * 
+	 * @return
+	 * void
+	 */
 
 	public void readFile(InputStream is) throws IOException {
 		InputStreamReader isr = new InputStreamReader(is);
@@ -46,14 +55,25 @@ public class JSONReader implements IReader{
 	
 	/**
 	 * Returns a Readings object that contains the collection of deserialized items
-	 * @param
+	 * @param is
+	 * 
 	 * @return
 	 * A readings object containing the items in the file
 	 */	
+	
 	public Readings getReadings(InputStream is) throws Exception{
 		this.readFile(is);
 		return myReadings;
 	}
+	
+	/**
+	 * The getStudy method takes the "is" file and parses out the study.
+	 * @param is
+	 * 
+	 * @return
+	 * the study out of the file and adds it to the reading. 
+	 */
+	
 	
 	public Study getStudy(InputStream is) throws Exception{
 		this.readFile(is);
@@ -64,9 +84,13 @@ public class JSONReader implements IReader{
 	}
 	
 	/**
+	 * loadSate loads previous state of the program. 
 	 * @param is
-	 * Returns a record that encapsulates the previous state.
+	 * 
+	 * @return
+	 * A record that encapsulates the previous state.
 	 */
+	
 	public Record loadState(InputStream is) throws Exception {
 
 		Record myRecord = Record.getInstance();
