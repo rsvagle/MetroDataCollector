@@ -32,17 +32,19 @@ public class SiteListAdapter extends ArrayAdapter<Site> {
         LayoutInflater inflater = LayoutInflater.from(myContext);
         convertView = inflater.inflate(myResource, parent, false);
 
-        TextView tvSiteID = (TextView) convertView.findViewById(R.id.list_site_id);
-        TextView tvSiteStatus = (TextView) convertView.findViewById(R.id.list_site_status);
-        Button btnViewSite = (Button) convertView.findViewById(R.id.view_site_btn);
+        TextView tvStudyID = convertView.findViewById(R.id.list_site_study_id);
+        TextView tvSiteID =  convertView.findViewById(R.id.list_site_id);
+        TextView tvSiteStatus = convertView.findViewById(R.id.list_site_status);
+        Button btnViewSite = convertView.findViewById(R.id.view_site_btn);
 
+        tvStudyID.setText(currentSite.getStudyID());
         tvSiteID.setText(siteID);
-        tvSiteStatus.setText(currentSite.isRecording() + "");
+        tvSiteStatus.setText(currentSite.getMyBehavior().behaviorTypeToString());
         btnViewSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent viewSiteIntent = new Intent(getContext(), ViewSiteActivity.class);
-                viewSiteIntent.putExtra("site", currentSite);
+                viewSiteIntent.putExtra("siteID", currentSite.getSiteID());
                 viewSiteIntent.putExtra("studyID", currentSite.getStudyID());
                 myContext.startActivity(viewSiteIntent);
             }

@@ -27,7 +27,7 @@ public class Record implements Serializable {
 	
 	/**
 	 * Singleton instance method
-	 * @param void
+	 * @param
 	 * @return
 	 * recordSelf
 	 */
@@ -65,7 +65,7 @@ public class Record implements Serializable {
 				itemList.addAll(site.getItems());
 			}
 			importedReadings.setReadings(itemList);
-			initializedStudy.setSiteForReading(importedReadings);
+			initializedStudy.setSitesForReading(importedReadings);
 			initializedStudy.addReadings(importedReadings);
 		}
 		return false;
@@ -180,7 +180,8 @@ public class Record implements Serializable {
 	
 	/**
 	 * Find a study by study name and ID
-	 * @param String name, ID
+	 * @param name
+	 * @param Id
 	 * @return 
 	 * Study
 	 * Null if not found

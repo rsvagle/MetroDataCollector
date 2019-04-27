@@ -9,8 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Site  implements Serializable {
-	private Study study;
 
+	private IBehavior myBehavior;
+
+	@SerializedName("behavior")
+	@Expose
+	private String serializedBehavior;
 	@SerializedName("recording")
 	@Expose
 	private boolean recording;
@@ -103,18 +107,37 @@ public class Site  implements Serializable {
 		this.recording = bool;
 	}
 
-	/**
-	 *get study
-	 * @return
-	 * study
-	 */
-	public Study getStudy() {
-		return this.study;
+	public IBehavior getMyBehavior(){
+		myBehavior = getSerializedBehavior();
+		return this.myBehavior;
 	}
 
-	public void setStudy(Study s) {
-		this.study = s;
-		this.studyID = s.getStudyID();
+	public void setMyBehavior(IBehavior behavior){
+		this.myBehavior = behavior;
+		serializedBehavior = myBehavior.behaviorTypeToString();
+	}
+
+	public IBehavior getSerializedBehavior(){
+		if(!(serializedBehavior == null)){
+			if(serializedBehavior.equals("Active")){
+				return new ActiveSiteBehavior();
+			}
+			else if(serializedBehavior.equals("Collection Disabled")){
+				return new CollectionDisabledBehavior();
+			}
+			else if(serializedBehavior.equals("Invalid")){
+				return new SiteInvalidBehavior();
+			}
+			else if(serializedBehavior.equals("Complete")){
+				return new CompletedStudyBehavior();
+			}
+			else {
+				return new ActiveSiteBehavior();
+			}
+		}
+		else{
+			return new ActiveSiteBehavior();
+		}
 	}
 
 	/**
@@ -141,10 +164,7 @@ public class Site  implements Serializable {
 	 * return true if the new item is added to site
 	 */
 	public boolean addItem(Item i) {
-		if(recording && i.getSiteID().equals(this.getSiteID())) {
-			siteReadings.putIfAbsent(i.getReadingID(), i);
-		}
-		return siteReadings.containsValue(i);
+		return myBehavior.addItem(siteReadings, i, siteID);
 	}
 	
 	/**
@@ -177,7 +197,6 @@ public class Site  implements Serializable {
 	/**
 	 * Determines a site to be empty or not
 	 * @param
-	 * void
 	 * @return
 	 * Returns a boolean indicating the presence of items in a site's readings
 	 */
@@ -188,6 +207,7 @@ public class Site  implements Serializable {
 	/**
 	 * checks if objects are equal
 	 * @param
+	 * @return
 	 * return true if equal
 	 */
 	@Override
