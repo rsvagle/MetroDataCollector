@@ -51,7 +51,7 @@ public class JSONWriter {
 
     public void writeToFileRecord(Record studyRecord, String outputFileName, Context context) throws Exception{
         String myJson;
-        Gson myGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Gson myGson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
         JsonArray myObj = new JsonArray();
         Iterator<Study> it = studyRecord.iterator();
         while(it.hasNext()) {

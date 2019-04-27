@@ -2,8 +2,10 @@ package com.example.DataCollection;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -29,8 +31,11 @@ public class ViewSiteActivity extends AppCompatActivity {
     private final Record theRecord = Record.getInstance();
     private final Context myContext = this;
 
-    Button dialogCancelButton;
-    Button dialogConfirmButton;
+    private Button dialogCancelButton;
+    private Button dialogConfirmButton;
+
+    private TextView siteStatusTv;
+    private TextView siteItemsTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +43,26 @@ public class ViewSiteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_site);
         Log.d(TAG, "onCreate: Started.");
 
-        currentSite = (Site) getIntent().getSerializableExtra("site");
+        final String currentSiteId = getIntent().getStringExtra("siteID");
         final String currentStudyID = (String) getIntent().getSerializableExtra("studyID");
+        currentSite = theRecord.getStudyByID(currentStudyID).getSiteByID(currentSiteId);
 
         Button addReadingsButton = findViewById(R.id.add_readings_btn);
         Button addAReadingButton = findViewById(R.id.add_a_reading_btn);
         Button exportSiteButton = findViewById(R.id.export_site_btn);
+        Button changeStatusButton = findViewById(R.id.change_site_status_button);
 
         TextView siteIDTv = findViewById(R.id.site_id_tv);
         String siteID = String.format("Site ID: %s", currentSite.getSiteID());
         siteIDTv.setText(siteID);
 
-        TextView siteStatusTv = findViewById(R.id.site_status_tv);
-        String siteStatus = String.format("Site Status: %s", currentSite.isRecording());
+        final TextView siteStatusTv = findViewById(R.id.site_status_tv);
+        String siteStatus = String.format("Site Status: %s", currentSite.getMyBehavior().behaviorTypeToString());
         siteStatusTv.setText(siteStatus);
 
         final TextView siteItemsTv = findViewById(R.id.site_items_view);
         siteItemsTv.setMovementMethod(new ScrollingMovementMethod());
-        siteItemsTv.setText(currentSite.toString());
+        siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
 
 
         /*
@@ -75,9 +82,9 @@ public class ViewSiteActivity extends AppCompatActivity {
                 final EditText getTypeText = dialog.findViewById(R.id.dialog_get_a_reading_type);
                 final EditText getReadingValue = dialog.findViewById(R.id.dialog_get_a_reading_value);
                 final EditText getReadingUnit = dialog.findViewById(R.id.dialog_get_a_reading_unit);
-
                 dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
                 dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
+
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -85,6 +92,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
                 dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -107,9 +115,9 @@ public class ViewSiteActivity extends AppCompatActivity {
                                     newReadingId,
                                     newReadingValue,
                                     currentTime);
-                        theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).addItem(newItem);
+                        currentSite.addItem(newItem);
                         Toast.makeText(getApplicationContext(), "Reading Created Successfully!",Toast.LENGTH_SHORT ).show();
-                        siteItemsTv.setText(theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).toString());
+                        siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
                         } else {
                             Toast.makeText(getApplicationContext(), "Please Provide data in all the fields",Toast.LENGTH_LONG).show();
                         }
@@ -135,9 +143,9 @@ public class ViewSiteActivity extends AppCompatActivity {
                  */
 //                TextView askFileNameText = dialog.findViewById(R.id.dialog_ask_file_name);
                 final EditText getFileNameText = dialog.findViewById(R.id.dialog_get_file_name);
-
                 dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
                 dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
+
                 dialogCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -145,6 +153,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
                 dialogConfirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -153,7 +162,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                             FileInputStream fileInputStream = myContext.openFileInput(filePath);
                             iReaderFactory = new IReaderFactory(filePath);
                             Readings importedReadings = iReaderFactory.getIReader().getReadings(fileInputStream);
-                            theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).addReadings(importedReadings);
+                            currentSite.getMyBehavior().addReadings(currentSite, importedReadings);
                             Toast.makeText(getApplicationContext(), "Readings added Successfully!", Toast.LENGTH_SHORT).show();
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -161,7 +170,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
-                            siteItemsTv.setText(theRecord.getStudyByID(currentStudyID).getSiteByID(currentSite.getSiteID()).toString());
+                            siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
                             dialog.dismiss();
                         }
                     }
@@ -183,9 +192,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                 /*
                  * set the custom dialog components - text, image and button
                  */
-//                TextView askFileNameText = dialog.findViewById(R.id.dialog_ask_output_file_name);
                 final EditText getFileNameText = dialog.findViewById(R.id.dialog_get_file_name);
-
                 dialogCancelButton = dialog.findViewById(R.id.dialog_cancel_btn);
                 dialogConfirmButton = dialog.findViewById(R.id.dialog_confirm_btn);
 
@@ -217,6 +224,45 @@ public class ViewSiteActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        changeStatusButton.setOnClickListener(new View.OnClickListener() {
+            AlertDialog statusDialog;
+            @Override
+            public void onClick(View v) {
+                final CharSequence[] items = {"Active","Collection Disabled","Invalid","Complete"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(myContext);
+                builder.setTitle("Select The Site Status");
+                builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+
+                        switch(item)
+                        {
+                            case 0:
+                                currentSite.setMyBehavior(new ActiveSiteBehavior());
+                                break;
+                            case 1:
+                                currentSite.setMyBehavior(new CollectionDisabledBehavior());
+                                break;
+                            case 2:
+                                currentSite.setMyBehavior(new SiteInvalidBehavior());
+                                break;
+                            case 3:
+                                currentSite.setMyBehavior(new CompletedStudyBehavior());
+                                break;
+
+                        }
+
+                        siteStatusTv.setText(String.format("Site Status: %s", currentSite.getMyBehavior().behaviorTypeToString()));
+                        siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
+                        statusDialog.dismiss();
+                    }
+                });
+                statusDialog = builder.create();
+                statusDialog.show();
+            }
+
+        });
     }
 
     public void onStop() {
@@ -232,5 +278,10 @@ public class ViewSiteActivity extends AppCompatActivity {
             Log.d(TAG, "onStop: caught exception!");
             e.printStackTrace();
         }
+    }
+
+    public void refresh(){
+        siteStatusTv.setText(String.format("Site Status: %s", currentSite.getMyBehavior().behaviorTypeToString()));
+        siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
     }
 }

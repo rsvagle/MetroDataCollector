@@ -33,9 +33,9 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
         LayoutInflater inflater = LayoutInflater.from(myContext);
         convertView = inflater.inflate(myResource, parent, false);
 
-        TextView tvStudyID = (TextView) convertView.findViewById(R.id.list_study_id);
-        TextView tvStudyName = (TextView) convertView.findViewById(R.id.list_study_name);
-        Button btnViewStudyActivity = (Button) convertView.findViewById(R.id.view_study_btn);
+        TextView tvStudyID = convertView.findViewById(R.id.list_study_id);
+        TextView tvStudyName = convertView.findViewById(R.id.list_study_name);
+        Button btnViewStudyActivity = convertView.findViewById(R.id.view_study_btn);
 
         tvStudyID.setText(studyID);
         tvStudyName.setText(studyName);
@@ -43,7 +43,7 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
             @Override
             public void onClick(View v) {
                 Intent viewStudyIntent = new Intent(myContext, ViewStudyActivity.class);
-                viewStudyIntent.putExtra("study", currentStudy);
+                viewStudyIntent.putExtra("studyID", currentStudy.getStudyID());
                 myContext.startActivity(viewStudyIntent);
             }
         });

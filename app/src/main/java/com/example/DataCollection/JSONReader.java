@@ -78,7 +78,7 @@ public class JSONReader implements IReader{
 	public Study getStudy(InputStream is) throws Exception{
 		this.readFile(is);
 		myStudy = new Study("xxx","UnknownStudy");
-		myStudy.setSiteForReading(myReadings);
+		myStudy.setSitesForReading(myReadings);
 		myStudy.addReadings(myReadings);
 		return myStudy;
 	}
