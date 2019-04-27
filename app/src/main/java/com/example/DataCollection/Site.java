@@ -106,16 +106,33 @@ public class Site  implements Serializable {
 	public void setRecording(boolean bool) {
 		this.recording = bool;
 	}
+	
+	/**
+	 * Gets the Behavior
+	 * @return
+	 * Behavior
+	 */
 
 	public IBehavior getMyBehavior(){
 		myBehavior = getSerializedBehavior();
 		return this.myBehavior;
 	}
+	
+	/**
+	 * set the Bheavior
+	 * @param behavior
+	 */
 
 	public void setMyBehavior(IBehavior behavior){
 		this.myBehavior = behavior;
 		serializedBehavior = myBehavior.behaviorTypeToString();
 	}
+	
+	/**
+	 * Get the saved Behavior
+	 * @return
+	 * what ever behavior it is.
+	 */
 
 	public IBehavior getSerializedBehavior(){
 		if(!(serializedBehavior == null)){
