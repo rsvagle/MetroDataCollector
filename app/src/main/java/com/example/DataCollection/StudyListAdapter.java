@@ -17,12 +17,28 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
 
     private Context myContext;
     int myResource;
+    
+    /**
+     * Adaptes Studt list to android application
+     * @param context
+     * @param resource
+     * @param objects
+     */
 
     public StudyListAdapter(Context context, int resource, List<Study> objects) {
         super(context, resource, objects);
         this.myContext = context;
         this.myResource = resource;
     }
+    
+    /**
+     * Gets the view of the application screne
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     * current view
+     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
