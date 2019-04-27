@@ -27,11 +27,20 @@ public class Site  implements Serializable {
 	@Expose
 	private Map<String,Item> siteReadings = new HashMap<String, Item>();
 	
+	/**
+	 * sets site functions and initialized ID. 
+	 */
+	
 	public Site() {
 		recording = false;
 		active = true;
 		studyID = "xxx";
 	}
+	
+	/**
+	 * Sets ID number to siteID
+	 * @param id
+	 */
 	
 	public Site (String id) {
 		this();
@@ -39,8 +48,9 @@ public class Site  implements Serializable {
 	}
 		
 	/**
-	 * 
+	 * Gets site ID number. 
 	 * @return
+	 * Site ID number
 	 */
 	public String getSiteID() {
 		return siteID;
@@ -55,7 +65,7 @@ public class Site  implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Creates and array list of items 
 	 * @return
 	 */
 	public ArrayList<Item> getItems() {
@@ -64,7 +74,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * sets items into array list. 
 	 * @param items
 	 */
 	public void setItems(ArrayList<Item> items) {
@@ -76,8 +86,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * @param
-	 * return the status of a site either start collecting
+	 * Return the status of a site either start collecting
 	 * or end collecting
 	 * @return
 	 * return true if start collecting and false if collection ended
@@ -87,7 +96,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Set recording. 
 	 * @param bool
 	 */
 	public void setRecording(boolean bool) {
@@ -95,8 +104,9 @@ public class Site  implements Serializable {
 	}
 
 	/**
-	 *
+	 *get study
 	 * @return
+	 * study
 	 */
 	public Study getStudy() {
 		return this.study;
@@ -108,21 +118,25 @@ public class Site  implements Serializable {
 	}
 
 	/**
-	 * 
+	 * get study ID
 	 * @return
+	 * study ID
 	 */
 	public String getStudyID() {
 		return this.studyID;
 	}
-	
+	/**
+	 * set study ID to study
+	 * @param newStudyID
+	 */
 	public void setStudyID(String newStudyID) {
 		this.studyID = newStudyID;
 	}
 	
 	/**
-	 * @param
 	 * addItem: takes a single Item as a parameter, adds it to 
 	 * the instance of site's list of items
+	 * @param
 	 * @return
 	 * return true if the new item is added to site
 	 */
@@ -134,9 +148,9 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * @param
 	 * addReadings: takes a Readings as a parameter, add readings to 
 	 * the instance of site list of items
+	 * @param
 	 * @return
 	 * return true if the new item is added to site
 	 */
@@ -152,7 +166,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Invalidates site
 	 */
 	public void invalidateSite() {
 		this.active = false;
@@ -172,7 +186,9 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * checks if objects are equal
+	 * @param
+	 * return true if equal
 	 */
 	@Override
 	public boolean equals(Object object) {
@@ -185,7 +201,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * write site readings to text
 	 */
 	@Override
 	public String toString() {
