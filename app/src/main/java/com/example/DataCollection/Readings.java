@@ -17,16 +17,49 @@ public class Readings {
 	@Expose
 	private ArrayList<Item> readings = new ArrayList<>();
 	
+	/**
+	 * Readings method does nothing.  
+	 * @param void
+	 * 
+	 * @return
+	 * void
+	 */
+	
 	public Readings() {
 	}
+	
+	/**
+	 * getReadings gets an array of readings.  
+	 * @param void
+	 * 
+	 * @return
+	 * the array of readings. 
+	 */
 	
 	public ArrayList<Item> getReadings() {
 		return this.readings;
 	}
 	
+	/**
+	 * setReadings sets reading to the list array.  
+	 * @param list
+	 * 
+	 * @return
+	 * void
+	 */
+	
 	public void setReadings(ArrayList<Item> list) {
 		this.readings = list;
 	}
+	
+	/**
+	 * toString writes the reading array.  
+	 * @param void
+	 * 
+	 * @return
+	 * the text string of readings
+	 */
+	
 	
 	@Override
 	public String toString() {

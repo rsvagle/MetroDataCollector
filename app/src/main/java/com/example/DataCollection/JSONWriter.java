@@ -19,6 +19,13 @@ public class JSONWriter {
     /**
      * WriteToFileObject method takes as parameters an object to write,
      * a file name, and a context. It writes the object to a file on the storage
+     * 
+     * @param o, outputFileName, context
+     * 
+     * @return
+     * void
+     * 
+     * 
      */
     public void writeToFileObject(Object o, String outputFileName, Context context) throws Exception{
         String myJson;
@@ -30,6 +37,17 @@ public class JSONWriter {
         fos.write(myJson.getBytes());
         fos.close();
     }
+    
+    
+    /**
+     * WriteToFileRecord method takes as parameters an object to write,
+     * a file name, and a context. It writes the record to a file for storage
+     * 
+     * @param studyRecord, outputFileName, context
+     * 
+     * @return
+     * void
+     */
 
     public void writeToFileRecord(Record studyRecord, String outputFileName, Context context) throws Exception{
         String myJson;
