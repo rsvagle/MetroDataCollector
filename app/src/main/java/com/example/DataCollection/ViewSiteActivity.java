@@ -36,6 +36,11 @@ public class ViewSiteActivity extends AppCompatActivity {
 
     private TextView siteStatusTv;
     private TextView siteItemsTv;
+    
+    /**
+     * Loads Application GUI
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,6 +269,10 @@ public class ViewSiteActivity extends AppCompatActivity {
 
         });
     }
+    
+    /**
+     * Saves state of the program on close
+     */
 
     public void onStop() {
         super.onStop();
@@ -279,6 +288,10 @@ public class ViewSiteActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * reopens current screen in case of updated data.
+     */
 
     public void refresh(){
         siteStatusTv.setText(String.format("Site Status: %s", currentSite.getMyBehavior().behaviorTypeToString()));

@@ -31,6 +31,11 @@ public class ViewStudyActivity extends AppCompatActivity {
     private Button dialogCancelButton;
     private Button dialogConfirmButton;
 
+    /**
+     * Loads Application GUI
+     * @param savedInstanceState
+     */
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -201,6 +206,10 @@ public class ViewStudyActivity extends AppCompatActivity {
             }
         });
     }
+    
+    /**
+     * Saves state of the program on close
+     */
 
     public void onStop() {
         super.onStop();
@@ -215,6 +224,10 @@ public class ViewStudyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * opens site list view
+     */
 
     @Override
     protected void onResume() {
