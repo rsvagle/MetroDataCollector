@@ -48,10 +48,10 @@
         android:id="@+id/add_a_reading_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_readings_btn"
+        android:layout_below="@+id/change_site_status_button"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="8sp"
-        android:layout_marginTop="50sp"
+        android:layout_marginTop="25sp"
         android:layout_marginBottom="8sp"
         android:background="@drawable/button_round"
         android:paddingLeft="8sp"
@@ -83,7 +83,6 @@
         android:textColor="@color/whiteText"
         android:layout_below="@id/site_readings_text"
         android:layout_above="@id/export_site_btn"
-        
         android:scrollbars = "vertical"
         android:paddingStart="8sp"
         android:paddingTop="8sp"
@@ -113,5 +112,21 @@
         android:text="TextView"
         android:textColor="@color/whiteText"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/change_site_status_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:layout_marginStart="8sp"
+        android:background="@drawable/red_button_round"
+        android:textStyle="bold"
+        android:paddingRight="8sp"
+        android:paddingLeft="8sp"
+        android:textSize="16sp"
+        android:textColor="@color/whiteText"
+        android:layout_below="@id/add_readings_btn"
+        android:text="@string/change_site_status" />
 
 </RelativeLayout>

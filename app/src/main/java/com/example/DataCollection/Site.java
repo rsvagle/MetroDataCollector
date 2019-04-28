@@ -9,8 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Site  implements Serializable {
-	private Study study;
 
+	private IBehavior myBehavior;
+
+	@SerializedName("behavior")
+	@Expose
+	private String serializedBehavior;
 	@SerializedName("recording")
 	@Expose
 	private boolean recording;
@@ -27,11 +31,20 @@ public class Site  implements Serializable {
 	@Expose
 	private Map<String,Item> siteReadings = new HashMap<String, Item>();
 	
+	/**
+	 * sets site functions and initialized ID. 
+	 */
+	
 	public Site() {
 		recording = false;
 		active = true;
 		studyID = "xxx";
 	}
+	
+	/**
+	 * Sets ID number to siteID
+	 * @param id
+	 */
 	
 	public Site (String id) {
 		this();
@@ -39,8 +52,9 @@ public class Site  implements Serializable {
 	}
 		
 	/**
-	 * 
+	 * Gets site ID number. 
 	 * @return
+	 * Site ID number
 	 */
 	public String getSiteID() {
 		return siteID;
@@ -55,7 +69,7 @@ public class Site  implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Creates and array list of items 
 	 * @return
 	 */
 	public ArrayList<Item> getItems() {
@@ -64,7 +78,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * sets items into array list. 
 	 * @param items
 	 */
 	public void setItems(ArrayList<Item> items) {
@@ -76,8 +90,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * @param
-	 * return the status of a site either start collecting
+	 * Return the status of a site either start collecting
 	 * or end collecting
 	 * @return
 	 * return true if start collecting and false if collection ended
@@ -87,56 +100,94 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Set recording. 
 	 * @param bool
 	 */
 	public void setRecording(boolean bool) {
 		this.recording = bool;
 	}
-
+	
 	/**
-	 *
+	 * Gets the Behavior
 	 * @return
+	 * Behavior
 	 */
-	public Study getStudy() {
-		return this.study;
-	}
 
-	public void setStudy(Study s) {
-		this.study = s;
-		this.studyID = s.getStudyID();
+	public IBehavior getMyBehavior(){
+		myBehavior = getSerializedBehavior();
+		return this.myBehavior;
+	}
+	
+	/**
+	 * set the Bheavior
+	 * @param behavior
+	 */
+
+	public void setMyBehavior(IBehavior behavior){
+		this.myBehavior = behavior;
+		serializedBehavior = myBehavior.behaviorTypeToString();
+	}
+	
+	/**
+	 * Get the saved Behavior
+	 * @return
+	 * what ever behavior it is.
+	 */
+
+	public IBehavior getSerializedBehavior(){
+		if(!(serializedBehavior == null)){
+			if(serializedBehavior.equals("Active")){
+				return new ActiveSiteBehavior();
+			}
+			else if(serializedBehavior.equals("Collection Disabled")){
+				return new CollectionDisabledBehavior();
+			}
+			else if(serializedBehavior.equals("Invalid")){
+				return new SiteInvalidBehavior();
+			}
+			else if(serializedBehavior.equals("Complete")){
+				return new CompletedStudyBehavior();
+			}
+			else {
+				return new ActiveSiteBehavior();
+			}
+		}
+		else{
+			return new ActiveSiteBehavior();
+		}
 	}
 
 	/**
-	 * 
+	 * get study ID
 	 * @return
+	 * study ID
 	 */
 	public String getStudyID() {
 		return this.studyID;
 	}
-	
+	/**
+	 * set study ID to study
+	 * @param newStudyID
+	 */
 	public void setStudyID(String newStudyID) {
 		this.studyID = newStudyID;
 	}
 	
 	/**
-	 * @param
 	 * addItem: takes a single Item as a parameter, adds it to 
 	 * the instance of site's list of items
+	 * @param
 	 * @return
 	 * return true if the new item is added to site
 	 */
 	public boolean addItem(Item i) {
-		if(recording && i.getSiteID().equals(this.getSiteID())) {
-			siteReadings.putIfAbsent(i.getReadingID(), i);
-		}
-		return siteReadings.containsValue(i);
+		return myBehavior.addItem(siteReadings, i, siteID);
 	}
 	
 	/**
-	 * @param
 	 * addReadings: takes a Readings as a parameter, add readings to 
 	 * the instance of site list of items
+	 * @param
 	 * @return
 	 * return true if the new item is added to site
 	 */
@@ -152,7 +203,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Invalidates site
 	 */
 	public void invalidateSite() {
 		this.active = false;
@@ -163,7 +214,6 @@ public class Site  implements Serializable {
 	/**
 	 * Determines a site to be empty or not
 	 * @param
-	 * void
 	 * @return
 	 * Returns a boolean indicating the presence of items in a site's readings
 	 */
@@ -172,7 +222,10 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * checks if objects are equal
+	 * @param
+	 * @return
+	 * return true if equal
 	 */
 	@Override
 	public boolean equals(Object object) {
@@ -185,7 +238,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * write site readings to text
 	 */
 	@Override
 	public String toString() {

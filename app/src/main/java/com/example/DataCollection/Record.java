@@ -27,7 +27,9 @@ public class Record implements Serializable {
 	
 	/**
 	 * Singleton instance method
-	 * 
+	 * @param
+	 * @return
+	 * recordSelf
 	 */
 	public static Record getInstance() {
 		if(recordSelf == null) {
@@ -44,7 +46,11 @@ public class Record implements Serializable {
 	
 	/**
 	 * Appends the specified Study to the end of the list of studies.
+	 * @param s
 	 * @return 
+	 *  if the set doesn't include the study, the study is set into the study set. 
+	 *  else
+	 *  if the study is in the set return false
 	 */
 	public boolean importStudy(Study s) {
 		if(!studySet.contains(s)) {
@@ -59,19 +65,18 @@ public class Record implements Serializable {
 				itemList.addAll(site.getItems());
 			}
 			importedReadings.setReadings(itemList);
-			initializedStudy.setSiteForReading(importedReadings);
+			initializedStudy.setSitesForReading(importedReadings);
 			initializedStudy.addReadings(importedReadings);
 		}
 		return false;
 	}
 	
-	public boolean createAndAddNewStudy(String studyID, String studyName) {
-		Study newStudy = new Study(studyID, studyName);
-		if(!this.getStudies().contains(newStudy)) {
-			return this.addStudy(newStudy);
-		}
-		return false;
-	}
+	/**
+	 * addStudy checks if the list of studies contains the study.  
+	 * @param s
+	 * @return
+	 * the study if the list doesn't contain the study, false if it does. 
+	 */
 	
 	public boolean addStudy(Study s) {
 		if(!this.getStudies().contains(s)) {
@@ -79,36 +84,27 @@ public class Record implements Serializable {
 		}
 		return false;
 	}
-	
+		
 	/**
-	 * @param arg0 - Integer position to add to
-	 * @param arg1- Study to be added
 	 * Inserts the specified element at the specified position in
 	 *  this list(optional operation).
+	 *  
+	 * @param arg0 - Integer position to add to
+	 * @param s- Study to be added
+	 * 
+	 * @return
+	 * the study set with the new study
 	 */
+	
 	public boolean addStudy(int arg0, Study s) {
 		studySet.add(arg0, s);
 		return studySet.contains(s);
-	}
-
-	/**
-	 * Adds a site s to the record, associating it with the correct study
-	 * @param s
-	 * @return
-	 */
-	public boolean addSite(Site s) {
-		for(Study study : studySet) {
-			if(s.getStudyID().equals(study.getStudyID())) {
-				study.addSite(s);
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	/**
 	 * Adds a set of readings to the record.
 	 * @param r
+	 * @return void
 	 */
 	public void addReadings(Readings r) {
 		for(Study s : studySet) {
@@ -116,13 +112,15 @@ public class Record implements Serializable {
 		}
 	}
 
-	/**
-	 * @param c- collection containing elements to be added to this list
-	 * @return
+	/**	 
 	 * Appends all of the elements in the specified collection to 
 	 * the end of this list, in the order that they are returned 
 	 * by the specifiedcollection's iterator (optional operation). 
+	 * @param c - collection containing elements to be added to this list
+	 * @return
+	 * all studies in set
 	 */
+	
 	public boolean addAllStudy(Collection<? extends Study> c) {
 		return studySet.addAll(c);
 	}
@@ -131,26 +129,31 @@ public class Record implements Serializable {
 	 * Removes all of the elements from this list (optional operation).
 	 * The list will be empty after this call returns
 	 */
+	
 	public void clearStudy() {
 		studySet.clear();
 	}
 
 	/**
-	 * Returns true if this list contains the specified element.
+	 * 
 	 * @param o
 	 * @return
+	 * Returns true if this list contains the specified element.
 	 */
+	
 	public boolean contains(Object o) {
 		return studySet.contains(o);
 	}
 	
 	/**
-	 * @param String name, ID
 	 * Find a study by study name and ID
+	 * @param name
+	 * @param Id
 	 * @return 
 	 * Study
 	 * Null if not found
 	 */
+	
 	public static Study findByAttributes(String name, String Id) {
 		Study found = null;
 		//it the studyList is not empty 
@@ -168,9 +171,13 @@ public class Record implements Serializable {
 	}
 
 	/**
-	 * Returns true if this list contains all of the elements
+	 * checks for containing elements.
+	 * @param c
+	 * @return
+	 * true if this list contains all of the elements
 	 * of the specified collection.
 	 */
+	
 	public boolean containsAll(Collection<?> c) {
 		return studySet.containsAll(c);
 	}
@@ -180,21 +187,25 @@ public class Record implements Serializable {
 	 * @param index
 	 * @return
 	 */
+	
 	public Study get(int index) {
 		return studySet.get(index);
 	}
 	
 	/**
-	 * Returns the studies associated with the record object
+	 * Gets the list of studies 
 	 * @return
+	 * the studies associated with the record object
 	 */
+	
 	public List<Study> getStudies() {
 		return studySet;
 	}
 	
 	/**
-	 * Returns a list of sites associated with the record.
+	 * gets a list of sites. 
 	 * @return
+	 * a list of sites associated with the record.
 	 */
 	public List<Site> getSites(){
 		List<Site> allSites = new ArrayList<Site>();
@@ -205,9 +216,10 @@ public class Record implements Serializable {
 	}
 	
 	/**
-	 * Return a study that matches the input parameters
+	 * Gets a study that is requested by user
 	 * @param studyName
 	 * @return
+	 * a study that matches the input parameters
 	 */
 	public Study getStudyByName(String studyName) {
 		for(Study s : studySet) {
@@ -220,8 +232,7 @@ public class Record implements Serializable {
 	
 	/**
 	 * Return a study that matches the input parameters
-	 * @param studyID
-	 * @param studyName
+	 * @param
 	 * @return
 	 */
 	public Study getStudy(String studyID, String studyName) {
@@ -302,25 +313,27 @@ public class Record implements Serializable {
 
     /**
      * Replaces the element at the specified position in this list with the specified element (optional operation).
-     * @param index
-     * @param element
+     * @param 
      * @return
+     * set of studies
      */
 	public Study set(int index, Study element) {
 		return studySet.set(index, element);
 	}
 
 	/**
-	 *  Returns the number of elements in this list.
+	 *  Gets size of study set. 
 	 * @return
+	 * the number of elements in this list.
 	 */
 	public int size() {
 		return studySet.size();
 	}
 
 	/**
-	 * Returns an array containing all of the elements in this list in proper sequence (from first to last element).
+	 * sets the study set to an array. 
 	 * @return
+	 * an array containing all of the elements in this list in proper sequence (from first to last element).
 	 */
 	public Object[] toArray() {
 		return studySet.toArray();

@@ -17,12 +17,28 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
 
     private Context myContext;
     int myResource;
+    
+    /**
+     * Adaptes Studt list to android application
+     * @param context
+     * @param resource
+     * @param objects
+     */
 
     public StudyListAdapter(Context context, int resource, List<Study> objects) {
         super(context, resource, objects);
         this.myContext = context;
         this.myResource = resource;
     }
+    
+    /**
+     * Gets the view of the application screne
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     * current view
+     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -33,9 +49,9 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
         LayoutInflater inflater = LayoutInflater.from(myContext);
         convertView = inflater.inflate(myResource, parent, false);
 
-        TextView tvStudyID = (TextView) convertView.findViewById(R.id.list_study_id);
-        TextView tvStudyName = (TextView) convertView.findViewById(R.id.list_study_name);
-        Button btnViewStudyActivity = (Button) convertView.findViewById(R.id.view_study_btn);
+        TextView tvStudyID = convertView.findViewById(R.id.list_study_id);
+        TextView tvStudyName = convertView.findViewById(R.id.list_study_name);
+        Button btnViewStudyActivity = convertView.findViewById(R.id.view_study_btn);
 
         tvStudyID.setText(studyID);
         tvStudyName.setText(studyName);
@@ -43,7 +59,7 @@ public class StudyListAdapter extends ArrayAdapter<Study> {
             @Override
             public void onClick(View v) {
                 Intent viewStudyIntent = new Intent(myContext, ViewStudyActivity.class);
-                viewStudyIntent.putExtra("study", currentStudy);
+                viewStudyIntent.putExtra("studyID", currentStudy.getStudyID());
                 myContext.startActivity(viewStudyIntent);
             }
         });

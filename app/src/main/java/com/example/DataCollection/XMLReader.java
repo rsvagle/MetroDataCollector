@@ -63,7 +63,7 @@ public class XMLReader implements IReader{
 	 */
 	public Study getStudy(InputStream is)  throws Exception{
 		this.readXML(is);
-		myStudy.setSiteForReading(readings);
+		myStudy.setSitesForReading(readings);
 		myStudy.addReadings(readings);
 		return myStudy;
 	}
