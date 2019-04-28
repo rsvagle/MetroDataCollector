@@ -10,7 +10,7 @@ public class ActiveSiteBehavior implements IBehavior, Serializable {
 
     @SerializedName("active_behavior_type")
     @Expose
-    private String activeBehaviorType = "Active";
+    private final String ACTIVE_BEHAVIOR_TYPE = "Active";
 
     /**
      * Checks if site contains a certain reading.
@@ -63,6 +63,6 @@ public class ActiveSiteBehavior implements IBehavior, Serializable {
 
     @Override
     public String behaviorTypeToString() {
-        return activeBehaviorType;
+        return ACTIVE_BEHAVIOR_TYPE;
     }
 }

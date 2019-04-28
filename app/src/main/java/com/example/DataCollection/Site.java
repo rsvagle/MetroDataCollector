@@ -181,6 +181,7 @@ public class Site  implements Serializable {
 	 * return true if the new item is added to site
 	 */
 	public boolean addItem(Item i) {
+		myBehavior = getSerializedBehavior();
 		return myBehavior.addItem(siteReadings, i, siteID);
 	}
 	
