@@ -1,14 +1,15 @@
 package com.example.DataCollection;
 
 import android.content.Context;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-
 import java.io.FileOutputStream;
 import java.util.Iterator;
 
+/**
+ * JSONWriter writes out .json files from a given input
+ */
 public class JSONWriter {
 
     public static final String TAG = "JSONWriter";
@@ -19,13 +20,11 @@ public class JSONWriter {
     /**
      * WriteToFileObject method takes as parameters an object to write,
      * a file name, and a context. It writes the object to a file on the storage
-     * 
-     * @param o, outputFileName, context
-     * 
+     * @param o Object to be written
+     * @param outputFileName Name of the output file
+     * @param context The context of the application
      * @return
      * void
-     * 
-     * 
      */
     public void writeToFileObject(Object o, String outputFileName, Context context) throws Exception{
         String myJson;
@@ -43,8 +42,9 @@ public class JSONWriter {
      * WriteToFileRecord method takes as parameters an object to write,
      * a file name, and a context. It writes the record to a file for storage
      * 
-     * @param studyRecord, outputFileName, context
-     * 
+     * @param studyRecord The record to write to
+     * @param outputFileName The name of the output file
+     * @param context The context of the application
      * @return
      * void
      */

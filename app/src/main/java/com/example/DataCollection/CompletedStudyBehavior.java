@@ -10,11 +10,13 @@ public class CompletedStudyBehavior implements IBehavior, Serializable {
 
     @SerializedName("completed_behavior_type")
     @Expose
-    String completedBehaviorType = "Complete";
+    private String completedBehaviorType = "Complete";
 
     /**
-     * Takes a Site reading array, and item,  and the Site ID and returns false
-     * @param siteReadings, i, siteID
+     * Checks if site contains a certain reading.
+     * @param siteReadings The site readings
+     * @param i The item to be added
+     * @param siteID The site ID for reference
      * @return
      * false
      */
@@ -23,10 +25,12 @@ public class CompletedStudyBehavior implements IBehavior, Serializable {
     public boolean addItem(Map<String, Item> siteReadings, Item i, String siteID) {
         return false;
     }
-    
+
     /**
-     * Takes a Site and reading and returns false
-     * @param s, r
+     * Takes a Site and reading and returns whether or not
+     * the readings were added
+     * @param s The site
+     * @param r The set of readings
      * @return
      * false
      */
@@ -38,7 +42,7 @@ public class CompletedStudyBehavior implements IBehavior, Serializable {
     
     /**
      * Writes collection disabled to text
-     * @param s
+     * @param s The site
      * @return
      * "Completed Study"
      */
@@ -49,7 +53,6 @@ public class CompletedStudyBehavior implements IBehavior, Serializable {
     }
     
     /**
-     * 
      * @return
      * the Completed Behavior Type
      */

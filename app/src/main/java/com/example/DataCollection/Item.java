@@ -7,8 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 
- * @param
+ *
  * Item class represent the reading object of the site
  * It keeps track of the attributes relating to a particular 
  * reading at a specified site.
@@ -39,11 +38,7 @@ public class Item implements Serializable {
 	@SerializedName("reading_date")
 	@Expose
 	private long readingDate;
-	
-	/**
-	 * This Item method does nothing. 
-	 */
-	
+
 	//The constructors of the Item class
 	public Item() {
 		
@@ -51,10 +46,14 @@ public class Item implements Serializable {
 	
 	/**
 	 * Item takes portions of the data and creates and Item object with them 
-	 * @param siteID, readingType, unit, readingID, readingValue, readingDate
-	 * 
+	 * @param siteID
+	 * @param readingType
+	 * @param unit
+	 * @param readingID
+	 * @param readingValue
+	 * @param readingDate
 	 * @return
-	 * void
+	 *
 	 */
 
 	public Item(String siteID, String readingType, String unit, String readingID, double readingValue, long readingDate) {
@@ -68,9 +67,7 @@ public class Item implements Serializable {
 
 	
 	/**
-	 * getSiteID gets site ID number 
-	 * @param void
-	 * 
+	 * getSiteID gets site ID number
 	 * @return
 	 * siteID
 	 */
@@ -81,7 +78,6 @@ public class Item implements Serializable {
 	/**
 	 * setSiteID sets site ID number 
 	 * @param siteID
-	 * 
 	 * @return
 	 * void
 	 */
@@ -91,9 +87,7 @@ public class Item implements Serializable {
 	}
 	
 	/**
-	 * getReadingType gets the type of reading the item needs.  
-	 * @param void
-	 * 
+	 * getReadingType gets the type of reading the item needs.
 	 * @return
 	 * readingType
 	 */
@@ -105,7 +99,6 @@ public class Item implements Serializable {
 	/**
 	 * setReadingType sets the type of reading in the item.  
 	 * @param readingType
-	 * 
 	 * @return
 	 * void
 	 */
@@ -116,9 +109,7 @@ public class Item implements Serializable {
 	
 	
 	/**
-	 * getReadingID gets the ID number of the item.  
-	 * @param void
-	 * 
+	 * getReadingID gets the ID number of the item.
 	 * @return
 	 * readingID
 	 */
@@ -130,7 +121,6 @@ public class Item implements Serializable {
 	/**
 	 * setReadingID sets the reading ID number of the item.  
 	 * @param readingID
-	 * 
 	 * @return
 	 * void
 	 */
@@ -140,11 +130,8 @@ public class Item implements Serializable {
 	}
 	
 	/**
-	 * getReadingValue gets the value of the data in the item.  
-	 * @param void
-	 * 
-	 * @return
-	 * readingValue
+	 * getReadingValue gets the value of the data in the item.
+	 * @return readingValue
 	 */
 
 	public double getReadingValue() {
@@ -155,7 +142,6 @@ public class Item implements Serializable {
 	/**
 	 * setReadingValue sets the value of the data in the item.  
 	 * @param readingValue
-	 * 
 	 * @return
 	 * void
 	 */
@@ -165,9 +151,7 @@ public class Item implements Serializable {
 	}
 
 	/**
-	 * getReadingDate gets the date of the data entry in the item.  
-	 * @param void
-	 * 
+	 * getReadingDate gets the date of the data entry in the item.
 	 * @return
 	 * readingDate
 	 */
@@ -179,7 +163,6 @@ public class Item implements Serializable {
 	/**
 	 * setReadingDate sets the date of the data entry in the item.  
 	 * @param readingDate
-	 * 
 	 * @return
 	 * void
 	 */
@@ -189,9 +172,7 @@ public class Item implements Serializable {
 	}
 	
 	/**
-	 * getUnit gets the unit of measurement of the data entry in the item.  
-	 * @param void
-	 * 
+	 * getUnit gets the unit of measurement of the data entry in the item.
 	 * @return
 	 * unit
 	 */
@@ -203,7 +184,6 @@ public class Item implements Serializable {
 	/**
 	 * setUnit sets the unit of measurement of the data entry in the item.  
 	 * @param unit
-	 * 
 	 * @return
 	 * void
 	 */
@@ -214,13 +194,11 @@ public class Item implements Serializable {
 	
 	/**
 	 * equals method checks if two items are the same
-	 * @param void
-	 * 
+	 * @param object
 	 * @return
 	 * whether or not the items are the same.
 	 */
-	
-	
+
 	@Override
 	public boolean equals(Object object) {
 		Item nitem = null;
@@ -236,9 +214,7 @@ public class Item implements Serializable {
 	}
 	
 	/**
-	 * toString method writes date to string  
-	 * @param void
-	 * 
+	 * toString method writes item to string
 	 * @return
 	 * void
 	 */
@@ -254,12 +230,9 @@ public class Item implements Serializable {
 	/**
 	 * Validate that there is a date associated with this item.
 	 * It there isn't one, replace 0 with the date it was imported.
-	 * @param void
-	 *  
 	 * @return
 	 * reading date is returned, if not entered it is set as current date.
 	 */
-	
 	public long validateDate() {
 		if(this.readingDate == 0) {
 			Date date = new Date();
@@ -271,8 +244,6 @@ public class Item implements Serializable {
 	/**
 	 * Validate that there is a unit associated with the item.
 	 * Provide a unit if it is absent.
-	 * @param void
-	 * 
 	 */
 	public void ValidateUnit() {
 		if(this.unit == null || this.unit.equals("")) {
