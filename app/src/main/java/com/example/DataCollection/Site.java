@@ -197,7 +197,7 @@ public class Site  implements Serializable {
 		if(this.recording) {
 			for(Item item : readings.getReadings()) {
 				this.addItem(item);
-				result = siteReadings.containsValue(item);
+				result = siteReadings.containsKey(item.getReadingID());
 			}
 		}
 		return result;

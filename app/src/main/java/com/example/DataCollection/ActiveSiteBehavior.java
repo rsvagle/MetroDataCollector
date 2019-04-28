@@ -23,10 +23,15 @@ public class ActiveSiteBehavior implements IBehavior, Serializable {
     
     @Override
     public boolean addItem(Map<String, Item> siteReadings, Item i, String siteId) {
-        if(i.getSiteID().equals(siteId)) {
-            siteReadings.putIfAbsent(i.getReadingID(), i);
+        if(i.getSiteID() == null){
+            return false;
         }
-        return siteReadings.containsValue(i);
+        else {
+            if (i.getSiteID().equals(siteId)) {
+                siteReadings.putIfAbsent(i.getReadingID(), i);
+            }
+            return siteReadings.containsValue(i);
+        }
     }
 
     /**
