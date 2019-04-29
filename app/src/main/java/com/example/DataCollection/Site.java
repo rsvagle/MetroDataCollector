@@ -61,7 +61,7 @@ public class Site  implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Sets the site id for the site
 	 * @param siteID
 	 */
 	public void setSiteID(String siteID) {
@@ -69,7 +69,7 @@ public class Site  implements Serializable {
 	}
 
 	/**
-	 * Creates and array list of items 
+	 * Returns array list of the items contained by the site
 	 * @return
 	 */
 	public ArrayList<Item> getItems() {
@@ -78,7 +78,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * sets items into array list. 
+	 * Sets the readings for the site
 	 * @param items
 	 */
 	public void setItems(ArrayList<Item> items) {
@@ -119,7 +119,7 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * set the Bheavior
+	 * Sets the site behavior
 	 * @param behavior
 	 */
 
@@ -129,9 +129,10 @@ public class Site  implements Serializable {
 	}
 	
 	/**
-	 * Get the saved Behavior
+	 * Gets the serialized behavior variable and
+	 * assigns the site the correct behavior type
 	 * @return
-	 * what ever behavior it is.
+	 * The correct behavior.
 	 */
 
 	public IBehavior getSerializedBehavior(){

@@ -167,7 +167,7 @@ public class Study implements Serializable {
 	/**
 	 * This method takes an ID string as parameter and return 
 	 * a site from study that match the input string ID
-	 * @param siteID
+	 * @param siteId
 	 * @return
 	 * a Site is return to the caller
 	 */
