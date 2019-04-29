@@ -10,11 +10,13 @@ public class CollectionDisabledBehavior implements IBehavior, Serializable {
 
     @SerializedName("disabled_behavior_type")
     @Expose
-    String disabledBehaviorType = "Collection Disabled";
+    private final String DISABLE_BEHAVIOR_TYPE = "Collection Disabled";
     
     /**
      * Takes a Site reading array, and item,  and the Site ID and returns false
-     * @param siteReadings, i, siteID
+     * @param siteReadings The readings for the site
+     * @param i The item to add
+     * @param siteID The site id for reference
      * @return
      * false
      */
@@ -23,10 +25,12 @@ public class CollectionDisabledBehavior implements IBehavior, Serializable {
     public boolean addItem(Map<String, Item> siteReadings, Item i, String siteID) {
         return false;
     }
-    
+
     /**
-     * Takes a Site and reading and returns false
-     * @param s, r
+     * Takes a Site and reading and returns whether or not
+     * the readings were added
+     * @param s The site
+     * @param r The set of readings
      * @return
      * false
      */
@@ -38,7 +42,7 @@ public class CollectionDisabledBehavior implements IBehavior, Serializable {
     
     /**
      * Writes collection disabled to text
-     * @param s
+     * @param s The site
      * @return
      * "Collection Disabled"
      */
@@ -49,13 +53,12 @@ public class CollectionDisabledBehavior implements IBehavior, Serializable {
     }
     
     /**
-     * 
      * @return
      * the disabled Behavior Type
      */
 
     @Override
     public String behaviorTypeToString() {
-        return disabledBehaviorType;
+        return DISABLE_BEHAVIOR_TYPE;
     }
 }

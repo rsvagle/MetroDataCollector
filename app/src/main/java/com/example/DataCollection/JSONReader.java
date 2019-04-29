@@ -1,26 +1,14 @@
 package com.example.DataCollection;
 
-import android.os.Environment;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Iterator;
 
 /**
- * 
- * JSONFile is a singleton class the handle JSON file
- * It reads, write JSON file into java object
- *
+ * JSONReader reads in .json files to be used in the data
+ * collection application.
  */
 public class JSONReader implements IReader{
 
@@ -30,12 +18,10 @@ public class JSONReader implements IReader{
 	public JSONReader() {
 		
 	}
-	
-	
+
 	/**
 	 * The readFile method takes JSON files and reads them.
-	 * @param is
-	 * 
+	 * @param is The input stream
 	 * @return
 	 * void
 	 */
@@ -55,8 +41,7 @@ public class JSONReader implements IReader{
 	
 	/**
 	 * Returns a Readings object that contains the collection of deserialized items
-	 * @param is
-	 * 
+	 * @param is The input stream
 	 * @return
 	 * A readings object containing the items in the file
 	 */	
@@ -67,9 +52,8 @@ public class JSONReader implements IReader{
 	}
 	
 	/**
-	 * The getStudy method takes the "is" file and parses out the study.
-	 * @param is
-	 * 
+	 * The getStudy method takes the input stream and parses out a study.
+	 * @param is the input stream
 	 * @return
 	 * the study out of the file and adds it to the reading. 
 	 */
@@ -85,8 +69,7 @@ public class JSONReader implements IReader{
 	
 	/**
 	 * loadSate loads previous state of the program. 
-	 * @param is
-	 * 
+	 * @param is The input stream
 	 * @return
 	 * A record that encapsulates the previous state.
 	 */

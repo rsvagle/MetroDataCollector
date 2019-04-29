@@ -10,11 +10,13 @@ public class SiteInvalidBehavior implements IBehavior, Serializable {
 
     @SerializedName("invalid_behavior_type")
     @Expose
-    String invalidBehaviorType = "Invalid";
-    
+    private final String INVALID_BEHAVIOR_TYPE = "Invalid";
+
     /**
-     * takes a map of site readings and item and the site ID and reutrns false
-     * @param siteReadings, i, siteID
+     * Checks if site contains a certain reading.
+     * @param siteReadings The site readings
+     * @param i The item to be added
+     * @param siteId The site Id for reference
      * @return
      * false
      */
@@ -22,10 +24,12 @@ public class SiteInvalidBehavior implements IBehavior, Serializable {
     public boolean addItem(Map<String, Item> siteReadings, Item i, String siteId) {
         return false;
     }
-    
+
     /**
-     * takes the site and the reading and returns false
-     * @param s, r
+     * Takes a Site and reading and returns whether or not
+     * the readings were added
+     * @param s The site
+     * @param r The set of readings
      * @return
      * false
      */
@@ -36,7 +40,7 @@ public class SiteInvalidBehavior implements IBehavior, Serializable {
     }
     
     /**
-     * writes "Site has been marked invalid!" to string
+     * Writes "Site has been marked invalid!" to string
      * @return
      * "Site has been marked invalid!"
      */
@@ -47,12 +51,11 @@ public class SiteInvalidBehavior implements IBehavior, Serializable {
     }
     
     /**
-     * @return
-     * invalidbehaviorType
+     * @return invalidBehaviorType
      */
 
     @Override
     public String behaviorTypeToString() {
-        return invalidBehaviorType;
+        return INVALID_BEHAVIOR_TYPE;
     }
 }

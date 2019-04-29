@@ -36,11 +36,6 @@ public class ViewSiteActivity extends AppCompatActivity {
 
     private TextView siteStatusTv;
     private TextView siteItemsTv;
-    
-    /**
-     * Loads Application GUI
-     * @param savedInstanceState
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +56,11 @@ public class ViewSiteActivity extends AppCompatActivity {
         String siteID = String.format("Site ID: %s", currentSite.getSiteID());
         siteIDTv.setText(siteID);
 
-        final TextView siteStatusTv = findViewById(R.id.site_status_tv);
+        siteStatusTv = findViewById(R.id.site_status_tv);
         String siteStatus = String.format("Site Status: %s", currentSite.getMyBehavior().behaviorTypeToString());
         siteStatusTv.setText(siteStatus);
 
-        final TextView siteItemsTv = findViewById(R.id.site_items_view);
+        siteItemsTv = findViewById(R.id.site_items_view);
         siteItemsTv.setMovementMethod(new ScrollingMovementMethod());
         siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
 
@@ -169,13 +164,14 @@ public class ViewSiteActivity extends AppCompatActivity {
                             Readings importedReadings = iReaderFactory.getIReader().getReadings(fileInputStream);
                             currentSite.getMyBehavior().addReadings(currentSite, importedReadings);
                             Toast.makeText(getApplicationContext(), "Readings added Successfully!", Toast.LENGTH_SHORT).show();
+                            siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Something went Wrong!", Toast.LENGTH_SHORT).show();
                         } finally {
-                            siteItemsTv.setText(currentSite.getMyBehavior().toString(currentSite));
                             dialog.dismiss();
                         }
                     }
@@ -221,6 +217,7 @@ public class ViewSiteActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "File Not Found!", Toast.LENGTH_LONG).show();
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Something went Wrong!", Toast.LENGTH_SHORT).show();
                         } finally {
                             dialog.dismiss();
                         }
@@ -269,10 +266,6 @@ public class ViewSiteActivity extends AppCompatActivity {
 
         });
     }
-    
-    /**
-     * Saves state of the program on close
-     */
 
     public void onStop() {
         super.onStop();
@@ -288,10 +281,6 @@ public class ViewSiteActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    
-    /**
-     * reopens current screen in case of updated data.
-     */
 
     public void refresh(){
         siteStatusTv.setText(String.format("Site Status: %s", currentSite.getMyBehavior().behaviorTypeToString()));

@@ -72,25 +72,8 @@ public class Record implements Serializable {
 	}
 	
 	/**
-	 * createAndAddNewStudy creates a new study and adds it to the list of studies.  
-	 * @param studyID, studyName
-	 * 
-	 * @return
-	 * if the study is not in the list of studies it is returned, if the study is already in the list a false is returned
-	 */
-	
-	public boolean createAndAddNewStudy(String studyID, String studyName) {
-		Study newStudy = new Study(studyID, studyName);
-		if(!this.getStudies().contains(newStudy)) {
-			return this.addStudy(newStudy);
-		}
-		return false;
-	}
-	
-	/**
 	 * addStudy checks if the list of studies contains the study.  
 	 * @param s
-	 * 
 	 * @return
 	 * the study if the list doesn't contain the study, false if it does. 
 	 */
@@ -117,22 +100,6 @@ public class Record implements Serializable {
 		studySet.add(arg0, s);
 		return studySet.contains(s);
 	}
-
-	/**
-	 * Adds a site s to the record, associating it with the correct study
-	 * @param s
-	 * @return
-	 *  if the data equals study the data is added to study
-	 */
-	public boolean addSite(Site s) {
-		for(Study study : studySet) {
-			if(s.getStudyID().equals(study.getStudyID())) {
-				study.addSite(s);
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	/**
 	 * Adds a set of readings to the record.
@@ -149,7 +116,7 @@ public class Record implements Serializable {
 	 * Appends all of the elements in the specified collection to 
 	 * the end of this list, in the order that they are returned 
 	 * by the specifiedcollection's iterator (optional operation). 
-	 * @param c- collection containing elements to be added to this list
+	 * @param c - collection containing elements to be added to this list
 	 * @return
 	 * all studies in set
 	 */

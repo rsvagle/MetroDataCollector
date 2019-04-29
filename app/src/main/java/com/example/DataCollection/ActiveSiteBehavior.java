@@ -10,28 +10,37 @@ public class ActiveSiteBehavior implements IBehavior, Serializable {
 
     @SerializedName("active_behavior_type")
     @Expose
-    String activeBehaviorType = "Active";
+    private final String ACTIVE_BEHAVIOR_TYPE = "Active";
 
     /**
      * Checks if site contains a certain reading.
-     * @param siteReadings, i, siteId
-     * 
+     * @param siteReadings The site readings
+     * @param i The item to be added
+     * @param siteId The site Id for reference
      * @return
      * true if site contains reading
      */
     
     @Override
     public boolean addItem(Map<String, Item> siteReadings, Item i, String siteId) {
-        if(i.getSiteID().equals(siteId)) {
-            siteReadings.putIfAbsent(i.getReadingID(), i);
+        if(i.getSiteID() == null){
+            return false;
         }
-        return siteReadings.containsValue(i);
+        else {
+            if (i.getSiteID().equals(siteId)) {
+                siteReadings.putIfAbsent(i.getReadingID(), i);
+            }
+            return siteReadings.containsValue(i);
+        }
     }
 
     /**
-     * Adds a reading to the site
-     * @return
-     * the reading in the site.
+     * Takes a Site and reading and returns whether or not
+     * the readings were added
+     * @param s The site
+     * @param r The set of readings
+     * @return boolean
+     *
      */
     
     @Override
@@ -41,7 +50,7 @@ public class ActiveSiteBehavior implements IBehavior, Serializable {
 
     /**
      * 
-     * @param s
+     * @param s The site
      * @return
      * The current site to text
      */
@@ -59,6 +68,6 @@ public class ActiveSiteBehavior implements IBehavior, Serializable {
 
     @Override
     public String behaviorTypeToString() {
-        return activeBehaviorType;
+        return ACTIVE_BEHAVIOR_TYPE;
     }
 }
