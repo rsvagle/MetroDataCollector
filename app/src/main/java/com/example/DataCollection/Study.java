@@ -186,17 +186,6 @@ public class Study implements Serializable {
 	}
 	
 	/**
-	 * Removes empty sites from the study
-	 */
-	public void removeEmptySite() {
-		for (Site s : associatedSites.values()) {
-			if (s.isEmpty()) {
-				associatedSites.remove(s.getSiteID());
-			} 
-		}
-	}
-	
-	/**
 	 * Checks another object for equality
 	 */
 	@Override

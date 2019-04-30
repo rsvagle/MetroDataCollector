@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Site  implements Serializable {
+public class Site implements Serializable {
 
 	private IBehavior myBehavior;
 
@@ -21,9 +21,6 @@ public class Site  implements Serializable {
 	@SerializedName("study_id")
 	@Expose
 	private String studyID;
-	@SerializedName("active")
-	@Expose
-	private boolean active;
 	@SerializedName("site_ID")
 	@Expose
 	private String siteID;
@@ -34,10 +31,8 @@ public class Site  implements Serializable {
 	/**
 	 * sets site functions and initialized ID. 
 	 */
-	
 	public Site() {
 		recording = false;
-		active = true;
 		studyID = "xxx";
 	}
 	
@@ -45,7 +40,6 @@ public class Site  implements Serializable {
 	 * Sets ID number to siteID
 	 * @param id
 	 */
-	
 	public Site (String id) {
 		this();
 		siteID = id;
@@ -112,7 +106,6 @@ public class Site  implements Serializable {
 	 * @return
 	 * Behavior
 	 */
-
 	public IBehavior getMyBehavior(){
 		myBehavior = getSerializedBehavior();
 		return this.myBehavior;
@@ -122,7 +115,6 @@ public class Site  implements Serializable {
 	 * Sets the site behavior
 	 * @param behavior
 	 */
-
 	public void setMyBehavior(IBehavior behavior){
 		this.myBehavior = behavior;
 		serializedBehavior = myBehavior.behaviorTypeToString();
@@ -134,26 +126,31 @@ public class Site  implements Serializable {
 	 * @return
 	 * The correct behavior.
 	 */
-
 	public IBehavior getSerializedBehavior(){
 		if(!(serializedBehavior == null)){
 			if(serializedBehavior.equals("Active")){
+				setRecording(true);
 				return new ActiveSiteBehavior();
 			}
 			else if(serializedBehavior.equals("Collection Disabled")){
+				setRecording(false);
 				return new CollectionDisabledBehavior();
 			}
 			else if(serializedBehavior.equals("Invalid")){
+				setRecording(false);
 				return new SiteInvalidBehavior();
 			}
 			else if(serializedBehavior.equals("Complete")){
+				setRecording(false);
 				return new CompletedStudyBehavior();
 			}
 			else {
+				setRecording(true);
 				return new ActiveSiteBehavior();
 			}
 		}
 		else{
+			setRecording(true);
 			return new ActiveSiteBehavior();
 		}
 	}
@@ -166,6 +163,7 @@ public class Site  implements Serializable {
 	public String getStudyID() {
 		return this.studyID;
 	}
+
 	/**
 	 * set study ID to study
 	 * @param newStudyID
@@ -202,25 +200,6 @@ public class Site  implements Serializable {
 			}
 		}
 		return result;
-	}
-	
-	/**
-	 * Invalidates site
-	 */
-	public void invalidateSite() {
-		this.active = false;
-		this.recording = false;
-		siteReadings.clear();
-	}
-	
-	/**
-	 * Determines a site to be empty or not
-	 * @param
-	 * @return
-	 * Returns a boolean indicating the presence of items in a site's readings
-	 */
-	public boolean isEmpty() {
-		return siteReadings.isEmpty();
 	}
 	
 	/**
