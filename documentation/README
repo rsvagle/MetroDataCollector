@@ -17,6 +17,7 @@ It's important to store your files in the following folder:
 
 data/data/com.example.datacollection/files
 
-You may have to create the folder, but often it is already there when the project builds
-The program runs best using a Nexus5 or Nexus5X emulator, some emulators seem to have
+You may have to create the folder, but often it is already there when the project builds.
+
+The program runs best (in my experience) using a Nexus5 or Nexus5X emulator, some emulators seem to have
 intermittent issues accessing that folder at times.
