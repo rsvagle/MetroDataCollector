@@ -1,0 +1,69 @@
+Title Andriod App
+MainActivity -> JSONWriter : Instance created
+MainActivity -> JSONReader : Instance created
+MainActivity -> MainActivity : onCreate()
+note over MainActivity : Build App GUI
+opt Import Readings Button
+MainActivity -> IReaderFactory : Instance created
+note over IReaderFactory : getFileExtension()
+MainActivity  -> IReaderFactory: getIReader.getStudy()
+alt JSON File
+IReaderFactory -> JSONReader : getStudy()
+JSONReader -> Study : setSitesForRecording()
+note over Study : Recording
+JSONReader -> Study : addReadings
+Study -> Site : getSiteID()
+Site -> Study : return SiteID
+note over Study : add readings to site
+JSONReader -> IReaderFactory : return Study 
+IReaderFactory -> MainActivity : return Reader
+
+else XML File
+IReaderFactory -> XMLReader : getStudy()
+XMLReader -> Study : setSitesForRecording()
+note over Study : Recording
+XMLReader -> Study : addReadings
+Study -> Site : getSiteID()
+Site -> Study : return SiteID
+note over Study : add readings to site
+XMLReader -> IReaderFactory : return Study 
+IReaderFactory -> MainActivity : return Reader
+
+end
+MainActivity -> Record : ImportStudy()
+alt does not contain study
+Record -> MainActivity : return Study.add
+
+else contains study
+note over MainActivity : import readings
+end
+
+else Add Readings Button
+MainActivity -> IReaderFactory : Instance created
+MainActivity  -> IReaderFactory: getIReader.getReadings()
+alt JSON File
+IReaderFactory -> JSONReader : getReadings()
+JSONReader -> IReaderFactory : return Readings 
+IReaderFactory -> MainActivity : return Reader
+
+else XML File
+IReaderFactory -> XMLReader : getStudy()
+XMLReader -> IReaderFactory : return Readings
+IReaderFactory -> MainActivity : return Reader
+
+end
+MainActivity -> Record : addReadings()
+note over Record : add Readings
+
+else Add Study Button
+MainActivity -> Study : Initialize new Study 
+MainActivity -> Record :addStudy
+note over Record : Check to make sure it doesn't exist
+Record -> MainActivity :return Study.add
+
+else Export Botton
+MainActivity ->JSONWriter : writeToFileRecord()
+note over JSONWriter : Use GSON to format file. 
+note over JSONWriter : output file to memory. 
+
+end
