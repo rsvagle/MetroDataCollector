@@ -1,3 +1,5 @@
+## Metro Data Collector
+
 ICS 372 Project 3:
 Data Collection App in Android
 
@@ -10,7 +12,7 @@ Tyler Corson
 
 Metropolitan State University
 Date: April 30th, 2019
-This program is designed and built for a recording data to a scientific
+This program is designed and built for a recording data into a scientific
 study. It allows the user to record collections of data from a variety of remote sites.
 
 It's important to store your files in the following folder:
